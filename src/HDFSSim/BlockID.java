@@ -16,7 +16,7 @@ public class BlockID implements Comparable<BlockID> {
 
     @Override
     public int compareTo(BlockID o) {
-        if (o.getId()==this.getId()) return 1;
-            else return 0;
+        if (o.getId()==this.id) return 1;
+        return 0;
     }
 }
