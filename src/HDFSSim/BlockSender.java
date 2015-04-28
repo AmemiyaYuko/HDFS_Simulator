@@ -12,8 +12,8 @@ public class BlockSender extends GridSim{
     private String entityName;
     private String receiverName;
     private boolean hasData;
-    private Objects gridlet;
-    BlockSender(String entityName,String receiverName,double baud_rate,Objects gridlet) throws Exception{
+    private byte[] gridlet;
+    BlockSender(String entityName,String receiverName,double baud_rate,byte[] gridlet) throws Exception{
         super(entityName,baud_rate);
         this.receiverName=new String(receiverName);
         this.gridlet=gridlet;

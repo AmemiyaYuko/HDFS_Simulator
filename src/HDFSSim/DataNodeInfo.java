@@ -101,4 +101,8 @@ public class DataNodeInfo extends Node{
         return blocksMap.size();
     }
 
+    public BlockManager getBlockManager(BlockID blockID){
+        return blocksMap.get(blockID);
+    }
+
 }

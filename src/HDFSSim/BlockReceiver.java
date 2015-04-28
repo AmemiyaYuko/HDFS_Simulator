@@ -11,7 +11,7 @@ import gridsim.GridSimTags;
 public class BlockReceiver extends GridSim {
     private String entityName;
     BlockReceiver(String entityName,double baud_rate) throws Exception{
-        super(entityName,baud_rate);
+        super(new String(entityName),baud_rate);
     }
 
     @Override

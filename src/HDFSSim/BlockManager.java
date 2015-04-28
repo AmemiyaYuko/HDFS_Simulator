@@ -7,9 +7,14 @@ public class BlockManager {
     //如果要加入磁盘读写的话可以在BlockID中加入File然后这里加入read
     BlockID blockID;
     BlockInfo blockInfo;
+    byte[] data;
     BlockManager(long i,long size) {
         blockID = new BlockID(i);
         blockInfo = new BlockInfo(blockID,size);
+    }
+    BlockManager(long i){
+        blockID=new BlockID(i);
+        blockInfo=new BlockInfo(blockID,64);
     }
 
     public BlockID getBlockID() {
@@ -26,5 +31,11 @@ public class BlockManager {
 
     public void setBlockInfo(BlockInfo blockInfo) {
         this.blockInfo = blockInfo;
+    }
+
+    public byte[] read(){
+        //这里加入时间消耗的日志
+        byte[] data=new byte[(int)blockInfo.getSize()*1024];
+        return data;
     }
 }
