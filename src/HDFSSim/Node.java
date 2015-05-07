@@ -3,7 +3,7 @@ package HDFSSim;
 /**
  * Created by Amemiya on 4/25/15.
  */
-public class Node implements Comparable<Node> {
+public class Node {
     private String ipAddr;
     private String hostName;
     private long generationStamp;
@@ -33,13 +33,12 @@ public class Node implements Comparable<Node> {
         return generationStamp;
     }
 
-    @Override
-    public int compareTo(Node o){
+    public boolean equal(Node o){
         if ((this.hostName.equals(o.getHostName()))&&
                 (this.ipAddr.equals(o.getIpAddr()))&&
                 (this.generationStamp==o.getGenerationStamp())){
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 }

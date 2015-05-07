@@ -16,7 +16,7 @@ public class BlockReceiver extends GridSim {
     private DataNode dataNode;
     private byte[] data;
     private boolean received=false;
-    BlockReceiver(String entityName,double baud_rate,DataNode dataNode) throws Exception{
+    BlockReceiver(String entityName,double baud_rate) throws Exception{
         super(new String(entityName),baud_rate);
         this.nodeName=nodeName;
     }

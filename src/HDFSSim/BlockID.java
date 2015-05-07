@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Created by Amemiya on 4/23/15.
  */
-public class BlockID implements Comparable<BlockID> {
+public class BlockID {
     private long id;
     BlockID(long id){
         this.id=id;
@@ -14,9 +14,9 @@ public class BlockID implements Comparable<BlockID> {
         return this.id;
     }
 
-    @Override
-    public int compareTo(BlockID o) {
-        if (o.getId()==this.id) return 1;
-        return 0;
+
+    public boolean equal(BlockID o) {
+        if (o.getId()==this.id) return true;
+        return false;
     }
 }

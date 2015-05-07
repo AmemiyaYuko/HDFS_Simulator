@@ -16,7 +16,7 @@ public class DataNode extends GridSim{
         super(hostName);
         this.dataNodeID=DataNodeID;
         dataNodeInfo=new DataNodeInfo(ipAddr,hostName,inPortName,outPortName,capacity,remaining);
-        blockReceiver=new BlockReceiver(new String(hostName+inPortName), ClusterConfiguration.getDataNodeConfiguration(dataNodeID).getBaudRate(),hostName);
+        blockReceiver=new BlockReceiver(new String(hostName+inPortName), ClusterConfiguration.getDataNodeConfiguration(dataNodeID).getBaudRate());
     }
     DataNode(DataNodeConfiguration dataNodeConfiguration) throws Exception {
         super(dataNodeConfiguration.getHostName());
@@ -36,9 +36,7 @@ public class DataNode extends GridSim{
     public void readBlock(){
 
     }
-    public void writeNewBlock(){
 
-    }
     public void writeReplica(){
 
     }
