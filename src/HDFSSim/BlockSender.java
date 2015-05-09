@@ -1,9 +1,7 @@
-package HDFSSim;
+package hdfssim;
 
 import gridsim.GridSim;
 import gridsim.GridSimTags;
-
-import java.util.Objects;
 
 /**
  * Created by Amemiya on 4/25/15.

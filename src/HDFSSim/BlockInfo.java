@@ -1,4 +1,4 @@
-package HDFSSim;
+package hdfssim;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,8 @@
-package HDFSSim;
+package hdfssim;
 
-import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_event;
 import gridsim.GridSim;
 import gridsim.GridSimTags;
-
-import javax.xml.crypto.Data;
 
 /**
  * Created by Amemiya on 4/25/15.

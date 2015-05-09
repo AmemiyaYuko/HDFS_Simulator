@@ -1,7 +1,5 @@
 package json;
 
-import HDFSSim.DataNode;
-
 import java.util.ArrayList;
 
 /**
@@ -20,5 +18,8 @@ public class ClusterConfiguration {
 
     public void setDataNodeConfigurations(ArrayList<DataNodeConfiguration> dataNodeConfigurations) {
         this.dataNodeConfigurations = dataNodeConfigurations;
+    }
+    public int numberOfDataNodes(){
+        return dataNodeConfigurations.size();
     }
 }

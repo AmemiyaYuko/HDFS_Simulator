@@ -1,4 +1,4 @@
-package HDFSSim;
+package hdfssim;
 
 /**
  * Created by Amemiya on 4/25/15.
@@ -7,7 +7,7 @@ public class Node {
     private String ipAddr;
     private String hostName;
     private long generationStamp;
-    Node(String ipAddr,String hostName){
+    public Node(String ipAddr,String hostName){
         this.ipAddr=ipAddr;
         this.hostName=hostName;
         this.generationStamp=System.nanoTime()%1000000000;

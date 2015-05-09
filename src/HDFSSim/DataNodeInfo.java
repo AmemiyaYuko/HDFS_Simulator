@@ -1,11 +1,8 @@
-package HDFSSim;
+package hdfssim;
 
-import jdk.nashorn.internal.ir.Block;
 import json.DataNodeConfiguration;
 
-import javax.xml.crypto.Data;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Created by Amemiya on 4/23/15.

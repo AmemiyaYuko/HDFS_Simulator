@@ -1,6 +1,5 @@
-package HDFSSim;
+package hdfssim;
 
-import eduni.simjava.Sim_entity;
 import gridsim.GridSim;
 import json.ClusterConfiguration;
 import json.DataNodeConfiguration;
@@ -26,9 +25,7 @@ public class DataNode extends GridSim{
         blockReceiver=new BlockReceiver(new String(df.getHostName())+new String(df.getInPortName()),df.getBaudRate());
     }
     public void interDataNodeReadBlock(String receiverName, BlockID blockID,double baudRate) throws Exception {
-        String senderName=new String(dataNodeInfo.getHostName())+new String(dataNodeInfo.getOutPortName());
-        BlockManager blockManager=dataNodeInfo.getBlockManager(blockID);
-        BlockSender blockSender=new BlockSender(senderName,receiverName,baudRate,blockManager.read());
+
     }
     public void interDataNodeWriteBlock(){
 

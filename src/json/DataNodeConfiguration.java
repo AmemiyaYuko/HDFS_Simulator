@@ -5,15 +5,15 @@ import java.io.File;
  * Created by Amemiya on 4/25/15.
  */
 public class DataNodeConfiguration {
-    private static double baudRate;
-    private static int DataNodeID;
-    private static String ipAddr,hostName,inPortName,outPortName;
-    static long capacity,remaining;
+    private double baudRate;
+    private int DataNodeID;
+    private String ipAddr,hostName,inPortName,outPortName;
+    private long capacity,remaining;
     File jsonFile;
-    DataNodeConfiguration(String fileName){
+    public DataNodeConfiguration(String fileName){
         jsonFile=new File(fileName);
     }
-    public static double getBaudRate() {
+    public double getBaudRate() {
         return baudRate;
     }
 
@@ -21,59 +21,59 @@ public class DataNodeConfiguration {
         this.baudRate = baudRate;
     }
 
-    public static int getDataNodeID() {
+    public int getDataNodeID() {
         return DataNodeID;
     }
 
-    public static void setDataNodeID(int dataNodeID) {
+    public void setDataNodeID(int dataNodeID) {
         DataNodeID = dataNodeID;
     }
 
-    public static String getIpAddr() {
+    public String getIpAddr() {
         return ipAddr;
     }
 
-    public static void setIpAddr(String ipAddr) {
-        DataNodeConfiguration.ipAddr = ipAddr;
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
     }
 
-    public static String getHostName() {
+    public String getHostName() {
         return hostName;
     }
 
-    public static void setHostName(String hostName) {
-        DataNodeConfiguration.hostName = hostName;
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
     }
 
-    public static String getInPortName() {
+    public String getInPortName() {
         return inPortName;
     }
 
-    public static void setInPortName(String inPortName) {
-        DataNodeConfiguration.inPortName = inPortName;
+    public void setInPortName(String inPortName) {
+        this.inPortName = inPortName;
     }
 
-    public static String getOutPortName() {
+    public String getOutPortName() {
         return outPortName;
     }
 
-    public static void setOutPortName(String outPortName) {
-        DataNodeConfiguration.outPortName = outPortName;
+    public void setOutPortName(String outPortName) {
+        this.outPortName = outPortName;
     }
 
-    public static long getCapacity() {
+    public long getCapacity() {
         return capacity;
     }
 
-    public static void setCapacity(long capacity) {
-        DataNodeConfiguration.capacity = capacity;
+    public void setCapacity(long capacity) {
+        this.capacity = capacity;
     }
 
-    public static long getRemaining() {
+    public long getRemaining() {
         return remaining;
     }
 
-    public static void setRemaining(long remaining) {
-        DataNodeConfiguration.remaining = remaining;
+    public void setRemaining(long remaining) {
+        this.remaining = remaining;
     }
 }

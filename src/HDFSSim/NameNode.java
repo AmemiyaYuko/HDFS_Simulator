@@ -1,4 +1,4 @@
-package HDFSSim;
+package hdfssim;
 
 import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_event;

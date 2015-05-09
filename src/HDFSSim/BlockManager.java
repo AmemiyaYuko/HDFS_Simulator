@@ -1,4 +1,4 @@
-package HDFSSim;
+package hdfssim;
 
 /**
  * Created by Amemiya on 4/23/15.
@@ -33,9 +33,7 @@ public class BlockManager {
         this.blockInfo = blockInfo;
     }
 
-    public byte[] read(){
-        //这里加入时间消耗的日志
-        byte[] data=new byte[(int)blockInfo.getSize()*1024];
-        return data;
+    public long read(String IPAddr){
+        return 0;
     }
 }

@@ -1,6 +1,4 @@
-package HDFSSim;
-
-import java.util.Comparator;
+package hdfssim;
 
 /**
  * Created by Amemiya on 4/23/15.

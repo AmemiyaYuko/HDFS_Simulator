@@ -1,4 +1,4 @@
-package HDFSSim;
+package hdfssim;
 
 /**
  * Created by Amemiya on 4/28/15.
