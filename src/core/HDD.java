@@ -10,7 +10,7 @@ import java.util.LinkedList;
 /**
  * Created by Amemiya on 5/9/15.
  */
-public class HDD extends Node{
+public class HDD {
     //Long---The end time of each task;
     //HDDIOTask---Task information;
     LinkedList<HDDIOTask> taskQueue=new LinkedList<HDDIOTask>();

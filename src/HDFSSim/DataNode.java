@@ -1,28 +1,41 @@
 package hdfssim;
 
-import gridsim.GridSim;
-import json.ClusterConfiguration;
+import eduni.simjava.Sim_entity;
+import eduni.simjava.Sim_port;
 import json.DataNodeConfiguration;
 
 /**
  * Created by Amemiya on 4/25/15.
  */
-public class DataNode extends GridSim{
+public class DataNode extends Sim_entity {
+    private String ipAddr;
+    private long capacity,remaining;
     private DataNodeInfo dataNodeInfo;
     private BlockReceiver blockReceiver;
     private int dataNodeID;
-    DataNode(int DataNodeID,String ipAddr,String hostName,String inPortName,String outPortName,long capacity,long remaining) throws Exception {
-        super(hostName);
+    private Sim_port in,out;
+    DataNode(int DataNodeID,String ipAddr,long capacity,long remaining) throws Exception {
+        super(ipAddr);
         this.dataNodeID=DataNodeID;
-        dataNodeInfo=new DataNodeInfo(ipAddr,hostName,inPortName,outPortName,capacity,remaining);
-        blockReceiver=new BlockReceiver(new String(hostName+inPortName), ClusterConfiguration.getDataNodeConfiguration(dataNodeID).getBaudRate());
+        dataNodeInfo=new DataNodeInfo(ipAddr,capacity,remaining,ipAddr+"in",ipAddr+"out");
+        this.capacity=capacity;
+        this.remaining=remaining;
+        in=new Sim_port(ipAddr+"in");
+        out=new Sim_port(ipAddr+"out");
+        add_port(in);
+        add_port(out);
     }
     DataNode(DataNodeConfiguration dataNodeConfiguration) throws Exception {
         super(dataNodeConfiguration.getHostName());
         DataNodeConfiguration df=dataNodeConfiguration;
+        this.remaining=remaining;
+        this.capacity=capacity;
         this.dataNodeID=df.getDataNodeID();
-        dataNodeInfo=new DataNodeInfo(df.getIpAddr(),df.getHostName(),df.getInPortName(),df.getOutPortName(),df.getCapacity(),df.getRemaining());
-        blockReceiver=new BlockReceiver(new String(df.getHostName())+new String(df.getInPortName()),df.getBaudRate());
+        dataNodeInfo=new DataNodeInfo(df.getIpAddr(),df.getCapacity(),df.getRemaining(),ipAddr+"in",ipAddr+"out");
+        in=new Sim_port(ipAddr+"out");
+        out=new Sim_port(ipAddr+"in");
+        add_port(in);
+        add_port(out);
     }
     public void interDataNodeReadBlock(String receiverName, BlockID blockID,double baudRate) throws Exception {
 
@@ -30,7 +43,7 @@ public class DataNode extends GridSim{
     public void interDataNodeWriteBlock(){
 
     }
-    public void readBlock(){
+    public void readLocalBlock(){
 
     }
 
@@ -41,7 +54,5 @@ public class DataNode extends GridSim{
     @Override
     public void body(){
 
-
     }
-
 }

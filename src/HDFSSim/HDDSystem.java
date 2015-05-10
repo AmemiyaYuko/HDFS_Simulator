@@ -2,6 +2,8 @@ package hdfssim;
 
 import core.HDD;
 import eduni.simjava.Sim_entity;
+import eduni.simjava.Sim_event;
+import eduni.simjava.Sim_system;
 import json.ClusterConfiguration;
 
 import java.util.ArrayList;
@@ -20,6 +22,14 @@ public class HDDSystem extends Sim_entity{
             disks.add(new HDD(ipAddr,hostName));
         }
         System.out.println("Hard Disk Drivers initialized");
+    }
+    @Override
+    public void body(){
+        while(Sim_system.running()){
+            Sim_event e=new Sim_event();
+            sim_get_next(e);
+
+        }
     }
 
 
