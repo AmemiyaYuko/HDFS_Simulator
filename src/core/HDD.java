@@ -8,7 +8,6 @@ import java.util.LinkedList;
  * Created by Amemiya on 5/9/15.
  */
 public class HDD {
-    //Long---The end time of each task;
     //HDDIOTask---Task information;
     String ipAddr,diskID;
     LinkedList<HDDIOTask> taskQueue=new LinkedList<HDDIOTask>();
@@ -21,13 +20,11 @@ public class HDD {
     public boolean isIdle(){
         return taskQueue.isEmpty();
     }
-    public double work(double currentTime) {
-        if (currentTask.getEndTime() == currentTime) {
-            taskQueue.pollFirst();
-            currentTask = taskQueue.getFirst();
-        }
+    public double pollFirst() {
+        taskQueue.pollFirst();
+        currentTask = taskQueue.getFirst();
         if (taskQueue.isEmpty()) return 0;
-        return taskQueue.getFirst().getEndTime();
+        return currentTask.getEndTime();
     }
     public void addTask(double size,double speed){
         HDDIOTask task=new HDDIOTask(taskQueue.getLast(),size,speed);

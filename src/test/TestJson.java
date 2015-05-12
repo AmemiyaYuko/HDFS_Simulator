@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 /**
  * Created by Amemiya on 5/12/15.
- */
+
 public class TestJson {
 
     public static void main(String[] args){
@@ -40,3 +40,4 @@ public class TestJson {
         //System.out.print(jr.numOfMachines());
     }
 }
+ */
