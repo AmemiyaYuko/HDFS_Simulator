@@ -12,13 +12,13 @@ public class DataNodeInfo extends Sim_entity{
     private String inPortName,outPortName;
     private long capacity;
     private long remaining;
-    private HashMap<BlockID,BlockManager> blocksMap;
+    //private HashMap<BlockID,BlockManager> blocksMap;
 
     DataNodeInfo(String ipAddr,long capacity,long remaining,String inPortName,String outPortName){
         super(ipAddr);
         this.capacity=capacity;
         this.remaining=remaining;
-        this.blocksMap=new HashMap<BlockID, BlockManager>();
+       // this.blocksMap=new HashMap<BlockID, BlockManager>();
         this.inPortName=inPortName;
         this.outPortName=outPortName;
     }
@@ -27,13 +27,13 @@ public class DataNodeInfo extends Sim_entity{
         super(ipAddr);
         this.capacity=capacity;
         this.remaining=capacity;
-        this.blocksMap=new HashMap<BlockID, BlockManager>();
+        //this.blocksMap=new HashMap<BlockID, BlockManager>();
     }
     DataNodeInfo(DataNodeConfiguration dataNodeConfiguration){
         super(dataNodeConfiguration.getIpAddr());
         this.capacity=dataNodeConfiguration.getCapacity();
         this.remaining=dataNodeConfiguration.getRemaining();
-        this.blocksMap=new HashMap<BlockID, BlockManager>();
+        //this.blocksMap=new HashMap<BlockID, BlockManager>();
     }
 
     public String getInPortName() {
@@ -67,8 +67,7 @@ public class DataNodeInfo extends Sim_entity{
     public void setRemaining(long remaining) {
         this.remaining = remaining;
     }
-
-    public HashMap<BlockID, BlockManager> getBlocksMap() {
+    /*public HashMap<BlockID, BlockManager> getBlocksMap() {
         return blocksMap;
     }
 
@@ -87,6 +86,6 @@ public class DataNodeInfo extends Sim_entity{
 
     public BlockManager getBlockManager(BlockID blockID){
         return blocksMap.get(blockID);
-    }
+    }*/
 
 }

@@ -1,11 +1,11 @@
 package hdfssim;
-
+/**
 import gridsim.GridSim;
 import gridsim.GridSimTags;
 
-/**
+
  * Created by Amemiya on 4/25/15.
- */
+
 public class BlockSender extends GridSim{
     private String entityName;
     private String receiverName;
@@ -23,3 +23,4 @@ public class BlockSender extends GridSim{
     }
 
 }
+ */

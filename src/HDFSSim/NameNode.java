@@ -2,7 +2,6 @@ package hdfssim;
 
 import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_event;
-import gridsim.GridSimTags;
 
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ public class NameNode extends Sim_entity{
     public void body(){
         int entityID;
         Sim_event ev=new Sim_event();
-        for(sim_get_next(ev);ev.get_tag()!= GridSimTags.END_OF_SIMULATION;sim_get_next(ev)){
+        for(sim_get_next(ev);ev.get_tag()!= HDFSSimTags.END_OF_SIMULATION;sim_get_next(ev)){
             if (ev.get_tag()==HDFSSimTags.WRITE_NEW_BLOCK){
                 this.writeNewBlock((Long)ev.get_data());
             }

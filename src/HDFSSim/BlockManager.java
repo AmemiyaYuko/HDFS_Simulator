@@ -2,7 +2,7 @@ package hdfssim;
 
 /**
  * Created by Amemiya on 4/23/15.
- */
+
 public class BlockManager {
     //如果要加入磁盘读写的话可以在BlockID中加入File然后这里加入read
     BlockID blockID;
@@ -36,4 +36,4 @@ public class BlockManager {
     public long read(String IPAddr){
         return 0;
     }
-}
+}*/

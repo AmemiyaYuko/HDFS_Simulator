@@ -6,12 +6,10 @@ import java.io.File;
  */
 public class DataNodeConfiguration {
     private double baudRate;
-    private int DataNodeID;
-    private String ipAddr,hostName,inPortName,outPortName;
+    private String ipAddr;
     private long capacity,remaining;
-    File jsonFile;
-    public DataNodeConfiguration(String fileName){
-        jsonFile=new File(fileName);
+    public DataNodeConfiguration(){
+
     }
     public double getBaudRate() {
         return baudRate;
@@ -21,44 +19,12 @@ public class DataNodeConfiguration {
         this.baudRate = baudRate;
     }
 
-    public int getDataNodeID() {
-        return DataNodeID;
-    }
-
-    public void setDataNodeID(int dataNodeID) {
-        DataNodeID = dataNodeID;
-    }
-
     public String getIpAddr() {
         return ipAddr;
     }
 
     public void setIpAddr(String ipAddr) {
         this.ipAddr = ipAddr;
-    }
-
-    public String getHostName() {
-        return hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
-
-    public String getInPortName() {
-        return inPortName;
-    }
-
-    public void setInPortName(String inPortName) {
-        this.inPortName = inPortName;
-    }
-
-    public String getOutPortName() {
-        return outPortName;
-    }
-
-    public void setOutPortName(String outPortName) {
-        this.outPortName = outPortName;
     }
 
     public long getCapacity() {

@@ -1,13 +1,14 @@
 package json;
 
 import java.util.ArrayList;
-
 /**
  * Created by Amemiya on 4/25/15.
  */
 public class ClusterConfiguration {
     private static ArrayList<DataNodeConfiguration> dataNodeConfigurations;
+    public ClusterConfiguration(String fileName){
 
+    }
     public static ArrayList<DataNodeConfiguration> getDataNodeConfigurations() {
         return dataNodeConfigurations;
     }

@@ -5,25 +5,25 @@ import java.util.ArrayList;
 /**
  * Created by Amemiya on 4/23/15.
  */
-public class BlockInfo  {
-    BlockID blockID;
+public class Block {
+    long blockID;
     long size;
     // replicas of this block were stored in following datanode list
     ArrayList<DataNodeInfo> dataNodeList=new ArrayList<DataNodeInfo>();
 
 
-    BlockInfo(BlockID blockID,long size) {
+    Block(long blockID, long size) {
         this.blockID=blockID;
         this.size=size;
     }
 
-    BlockInfo(BlockID blockID,long size,ArrayList<DataNodeInfo> dataNodeList){
+    Block(long blockID, long size, ArrayList<DataNodeInfo> dataNodeList){
         this.blockID=blockID;
         this.size=size;
         this.dataNodeList=new ArrayList<DataNodeInfo>(dataNodeList);
     }
 
-    public BlockID getBlockID() {
+    public long getBlockID() {
         return this.blockID;
     }
 

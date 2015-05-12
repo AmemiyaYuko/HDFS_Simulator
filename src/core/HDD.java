@@ -1,8 +1,5 @@
 package core;
 
-import hdfssim.Node;
-
-
 import java.util.LinkedList;
 
 
@@ -13,25 +10,27 @@ import java.util.LinkedList;
 public class HDD {
     //Long---The end time of each task;
     //HDDIOTask---Task information;
+    String ipAddr,diskID;
     LinkedList<HDDIOTask> taskQueue=new LinkedList<HDDIOTask>();
-    long lastTick;
+    long idleTime=0;
     HDDIOTask currentTask;
-    public HDD(String ipAddr, String hostName) {
-        super(ipAddr, hostName);
+    public HDD(String ipAddr,String diskID) {
+        this.ipAddr=ipAddr;
+        this.diskID=diskID;
     }
     public boolean isIdle(){
         return taskQueue.isEmpty();
     }
-    public long ticksToIdle(long currentTick){
-        return lastTick-currentTick;
-    }
-    public void work(long currentTick) {
-        if (currentTask.getEndTime() == currentTick) {
+    public double work(double currentTime) {
+        if (currentTask.getEndTime() == currentTime) {
             taskQueue.pollFirst();
             currentTask = taskQueue.getFirst();
         }
+        if (taskQueue.isEmpty()) return 0;
+        return taskQueue.getFirst().getEndTime();
     }
-    public void addTask(HDDIOTask task){
+    public void addTask(double size,double speed){
+        HDDIOTask task=new HDDIOTask(taskQueue.getLast(),size,speed);
         taskQueue.addLast(task);
     }
 }

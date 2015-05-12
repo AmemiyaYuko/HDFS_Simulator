@@ -1,12 +1,12 @@
 package hdfssim;
-
+/**
 import eduni.simjava.Sim_event;
 import gridsim.GridSim;
 import gridsim.GridSimTags;
 
-/**
+
  * Created by Amemiya on 4/25/15.
- */
+
 public class BlockReceiver extends GridSim {
     private String entityName;
     private String nodeName;
@@ -33,3 +33,4 @@ public class BlockReceiver extends GridSim {
         return received;
     }
 }
+ */
