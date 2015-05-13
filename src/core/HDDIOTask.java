@@ -4,25 +4,30 @@ package core;
  * Created by Amemiya on 5/9/15.
  */
 public class HDDIOTask {
-    private double startTime=0;
-    private double endTime=0;
+    private long consumption=0;
     private long id;
-    HDDIOTask(double startTime,double size,double speed){
-        this.startTime=startTime;
-        this.endTime=size/speed+this.startTime;
-    }
-    HDDIOTask(HDDIOTask task,double size,double speed){
-        this.startTime=task.getEndTime();
-        this.endTime=size/speed+this.startTime;
-    }
+    private long trackID;
+    private HDDID hddid;
 
-    public double getStartTime() {
-        return startTime;
+    HDDIOTask(double size,double speed,double seekTime,long trackID,HDDID hddid){
+        this.trackID=trackID;
+        this.hddid=hddid;
+        this.consumption=(int)((size/speed+seekTime)*1000);// 1ms per time unit
     }
 
-    public double getEndTime() {
-        return endTime;
+    public long getConsumption() {
+        return consumption;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public long getTrackID() {
+        return trackID;
+    }
+
+    public HDDID getHddid() {
+        return hddid;
+    }
 }

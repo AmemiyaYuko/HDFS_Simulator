@@ -4,20 +4,18 @@ package logger;
  * Created by Amemiya on 5/2/15.
  */
 public class Event {
-    private long startTime;
-    private long endTime;
+    private double timeConsumption;
     private String name;
-    Event(long startTime,long endTime,String name){
-        this.startTime=startTime;
-        this.endTime=endTime;
+    Event(String name,double timeConsumption){
         this.name=name;
+        this.timeConsumption=timeConsumption;
     }
-    public long getConsumption(){
-        return endTime-startTime;
+    public double getConsumption(){
+        return this.timeConsumption;
     }
 
     public String toString(){
-        return "Event \""+this.name+"\" started at "+this.startTime+" finished at "+this.endTime+". Total consumption: "+this.getConsumption();
+        return "Event \""+this.name+", time consumption: "+this.getConsumption();
     }
 
 

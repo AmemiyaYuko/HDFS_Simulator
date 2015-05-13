@@ -14,20 +14,20 @@ import java.util.Scanner;
  */
 public class JsonReader {
     private ArrayList<NodeConfig> nodeConfigs=new ArrayList<NodeConfig>();
-    private ArrayList<String> keywords=new ArrayList<String>(){{
+/*    private ArrayList<String> keywords=new ArrayList<String>(){{
         add("IP Address");
-        add("Baud Rate");//bit per sec
-        add("Capacity");//MB
-        add("Read Speed");//MB per sec
-        add("Write Speed");//MB per sec
+        add("Baud Rate");//kb per sec
+        add("Capacity");//kb
+        add("Read Speed");//kb per sec
+        add("Write Speed");//kb per sec
         add("Seek Time");//sec
-    }};
-    public JsonReader(String fileName){
-        String jsonString=new String(FileToString(fileName));
+    }};*/
+    public JsonReader(String dataNodeConfigFileName,String nameNodeConfigFileName){
+        String jsonString=new String(FileToString(dataNodeConfigFileName));
         JSONObject jsn=new JSONObject(jsonString);
         Iterator i=jsn.keys();
         while (i.hasNext()){
-            //processing single machine config
+            //processing single datanode config
             NodeConfig singleNodeConfig=new NodeConfig();
             String ipAddr=(String)i.next();
             JSONObject nodeObj=(JSONObject)jsn.get(ipAddr);
@@ -52,7 +52,6 @@ public class JsonReader {
     }
     private String FileToString(String fileName){
         File file = new File(fileName);
-        System.out.print(file.exists());
         Scanner scanner = null;
         StringBuilder buffer = new StringBuilder();
         try {
@@ -67,7 +66,7 @@ public class JsonReader {
                 scanner.close();
             }
         }
-        System.out.print(buffer.toString());
+        //System.out.print(buffer.toString());
         return buffer.toString();
     }
 

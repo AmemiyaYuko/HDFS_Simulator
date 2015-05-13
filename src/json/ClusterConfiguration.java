@@ -5,15 +5,16 @@ import java.util.ArrayList;
  * Created by Amemiya on 4/25/15.
  */
 public class ClusterConfiguration {
-    private static ArrayList<DataNodeConfiguration> dataNodeConfigurations;
-    public ClusterConfiguration(String fileName){
+    private ArrayList<DataNodeConfiguration> dataNodeConfigurations;
+    public ClusterConfiguration(String dataNodeConfigFileName){
+        JsonReader jr=new JsonReader(dataNodeConfigFileName,"");
 
     }
-    public static ArrayList<DataNodeConfiguration> getDataNodeConfigurations() {
+    public ArrayList<DataNodeConfiguration> getDataNodeConfigurations() {
         return dataNodeConfigurations;
     }
 
-    public static DataNodeConfiguration getDataNodeConfiguration(int i){
+    public DataNodeConfiguration getDataNodeConfiguration(int i){
         return dataNodeConfigurations.get(i);
     }
 
@@ -23,4 +24,5 @@ public class ClusterConfiguration {
     public int numberOfDataNodes(){
         return dataNodeConfigurations.size();
     }
+
 }

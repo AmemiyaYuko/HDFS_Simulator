@@ -21,9 +21,9 @@ public class Track {
         this.name=name;
     }
 
-    public void newEvent(long start,long end,String name){
+    public void newEvent(String name,double timeConsumption){
         lastEventID++;
-        events.add(new Event(start,end,name));
+        events.add(new Event(name,timeConsumption));
         totalConsumption+=events.get(lastEventID).getConsumption();
     }
 

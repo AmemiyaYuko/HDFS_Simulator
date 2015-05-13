@@ -6,48 +6,50 @@ import java.util.ArrayList;
  * Created by Amemiya on 4/23/15.
  */
 public class Block {
-    long blockID;
-    long size;
+    private Long blockID;
+    private double size;//kb
     // replicas of this block were stored in following datanode list
-    ArrayList<DataNodeInfo> dataNodeList=new ArrayList<DataNodeInfo>();
-
-
-    Block(long blockID, long size) {
+    private ArrayList<String> dataNodeIPList=new ArrayList<String>();
+    public Block(Long blockID, double size, ArrayList<String> dataNodeList){
         this.blockID=blockID;
         this.size=size;
+        this.dataNodeIPList=new ArrayList<String>(dataNodeList);
     }
-
-    Block(long blockID, long size, ArrayList<DataNodeInfo> dataNodeList){
-        this.blockID=blockID;
-        this.size=size;
-        this.dataNodeList=new ArrayList<DataNodeInfo>(dataNodeList);
+    Block(Block block){
+        this.blockID=block.getBlockID();
+        this.size=block.getSize();
+        this.dataNodeIPList=this.getDataNodeIPList();
     }
 
     public long getBlockID() {
-        return this.blockID;
+        return blockID;
     }
 
-    public void setSize(long size) {
-        this.size = size;
-    }
-
-    public long getSize() {
+    public double getSize() {
         return size;
     }
 
-    public int numOfReplicas(){
-        return dataNodeList.size();
+    public ArrayList<String> getDataNodeIPList() {
+        return dataNodeIPList;
     }
 
-    public ArrayList<DataNodeInfo> getDataNodeList() {
-        return dataNodeList;
+    public void setSize(double size) {
+        this.size = size;
     }
 
-    public boolean removeReplicatedDataNode(DataNodeInfo dataNodeInfo){
-        return  this.dataNodeList.remove(dataNodeInfo);
+    @Override
+    public boolean equals(Object o){
+        Long l=(Long)o;
+        return o.equals(blockID);
+    }
+    @Override
+    public int hashCode(){
+        Long l=new Long(blockID);
+        return l.hashCode();
+    }
+    @Override
+    public String toString(){
+        return blockID.toString();
     }
 
-    public boolean addReplicatedDataNode(DataNodeInfo dataNodeInfo){
-        return this.dataNodeList.add(dataNodeInfo);
-    }
 }

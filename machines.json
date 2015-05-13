@@ -16,13 +16,82 @@
             },
             "Disk3": {
                 "Capacity": 10250.58,
+                "Read Speed": 10.0,
+                "Write Speed": 10.0,
+                "Seek Time": 9.9
+            }
+        }
+    },
+    "192.168.1.2": {
+        "Baud Rate": 1000000.1,
+        "Disk": {
+            "Disk1": {
+                "Capacity": 10250.56,
+                "Read Speed": 250.7,
+                "Write Speed": 420.4,
+                "Seek Time": 9.3
+            },
+            "Disk2": {
+                "Capacity": 10250.57,
+                "Read Speed": 250.8,
+                "Write Speed": 420.5,
+                "Seek Time": 9.4
+            },
+            "Disk3": {
+                "Capacity": 10250.58,
                 "Read Speed": 250.9,
                 "Write Speed": 420.9,
                 "Seek Time": 9.9
             }
         }
     },
-    "192.168.1.2": {
+    "192.168.1.3": {
+        "Baud Rate": 1000000.1,
+        "Disk": {
+            "Disk1": {
+                "Capacity": 10250.56,
+                "Read Speed": 250.7,
+                "Write Speed": 420.4,
+                "Seek Time": 9.3
+            },
+            "Disk2": {
+                "Capacity": 10250.57,
+                "Read Speed": 250.8,
+                "Write Speed": 420.5,
+                "Seek Time": 9.4
+            },
+            "Disk3": {
+                "Capacity": 10250.58,
+                "Read Speed": 250.9,
+                "Write Speed": 420.9,
+                "Seek Time": 9.9
+            }
+        }
+    },
+    "192.168.1.4": {
+        "Baud Rate": 1000000.1,
+        "Disk": {
+            "Disk1": {
+                "Capacity": 10250.56,
+                "Read Speed": 250.7,
+                "Write Speed": 420.4,
+                "Seek Time": 9.3
+            },
+            "Disk2": {
+                "Capacity": 10250.57,
+                "Read Speed": 250.8,
+                "Write Speed": 420.5,
+                "Seek Time": 9.4
+            },
+            "Disk3": {
+                "Capacity": 10250.58,
+                "Read Speed": 250.9,
+                "Write Speed": 420.9,
+                "Seek Time": 9.9
+            }
+        }
+    },
+    "192.168.1.5": {
         "Baud Rate": 1000000.1,
         "Disk": {
             "Disk1": {

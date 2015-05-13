@@ -6,26 +6,38 @@ import java.util.HashMap;
  * Created by Amemiya on 5/12/15.
  */
 public class DiskConfig {
-    private HashMap<String,Double> diskConfig=new HashMap<String, Double>();
+    private double capacity,readSpeed,writeSpeed,seekTime;
     private String id;
     DiskConfig(String id){
         this.id=id;
     }
     public void setCapacity(Double capacity){
-        diskConfig.put("Capacity", capacity);
+        this.capacity=capacity.doubleValue();
     }
     public void setSpeed(Double readSpeed,Double writeSpeed){
-        diskConfig.put("Read Speed",readSpeed);
-        diskConfig.put("Write Speed",writeSpeed);
+        this.readSpeed=readSpeed.doubleValue();
+        this.writeSpeed=writeSpeed.doubleValue();
     }
     public void setSeekTime(Double seekTime){
-        diskConfig.put("Seek Time",seekTime);
+        this.seekTime=seekTime.doubleValue();
     }
-    public double getParam(String key){
-        return diskConfig.get(key).doubleValue();
-    }
-
     public String getId() {
         return id;
+    }
+
+    public double getCapacity() {
+        return capacity;
+    }
+
+    public double getReadSpeed() {
+        return readSpeed;
+    }
+
+    public double getWriteSpeed() {
+        return writeSpeed;
+    }
+
+    public double getSeekTime() {
+        return seekTime;
     }
 }
