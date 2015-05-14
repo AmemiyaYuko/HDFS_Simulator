@@ -9,16 +9,18 @@ public class Block {
     private Long blockID;
     private double size;//kb
     // replicas of this block were stored in following datanode list
-    private ArrayList<String> dataNodeIPList=new ArrayList<String>();
-    public Block(Long blockID, double size, ArrayList<String> dataNodeList){
-        this.blockID=blockID;
-        this.size=size;
-        this.dataNodeIPList=new ArrayList<String>(dataNodeList);
+    private ArrayList<String> dataNodeIPList = new ArrayList<String>();
+
+    public Block(Long blockID, double size, ArrayList<String> dataNodeList) {
+        this.blockID = blockID;
+        this.size = size;
+        this.dataNodeIPList = new ArrayList<String>(dataNodeList);
     }
-    Block(Block block){
-        this.blockID=block.getBlockID();
-        this.size=block.getSize();
-        this.dataNodeIPList=this.getDataNodeIPList();
+
+    Block(Block block) {
+        this.blockID = block.getBlockID();
+        this.size = block.getSize();
+        this.dataNodeIPList = this.getDataNodeIPList();
     }
 
     public long getBlockID() {
@@ -38,17 +40,19 @@ public class Block {
     }
 
     @Override
-    public boolean equals(Object o){
-        Long l=(Long)o;
+    public boolean equals(Object o) {
+        Long l = (Long) o;
         return o.equals(blockID);
     }
+
     @Override
-    public int hashCode(){
-        Long l=new Long(blockID);
+    public int hashCode() {
+        Long l = new Long(blockID);
         return l.hashCode();
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return blockID.toString();
     }
 

@@ -8,15 +8,18 @@ public class ReadReplicaRequest {
     private long blockID;
     private double offset;
     private double size;
-    public ReadReplicaRequest(long blockID,long trackID,double offset){
-        this.blockID=blockID;
-        this.trackID=trackID;
-        this.offset=offset;
+
+    public ReadReplicaRequest(long blockID, long trackID, double offset) {
+        this.blockID = blockID;
+        this.trackID = trackID;
+        this.offset = offset;
     }
+
     public long getTrackID() {
         return trackID;
     }
-    public long getBlockID(){
+
+    public long getBlockID() {
         return blockID;
     }
 
@@ -28,11 +31,11 @@ public class ReadReplicaRequest {
         this.size = size;
     }
 
-    public double consumption(double speed,double seekTime){
-        return ((size-offset)/speed+seekTime)*1000;
+    public double consumption(double speed, double seekTime) {
+        return ((size - offset) / speed + seekTime) * 1000;
     }
 
-    public void finish(){
+    public void finish() {
         //Logger.
     }
 }

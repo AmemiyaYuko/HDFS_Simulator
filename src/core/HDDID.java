@@ -3,12 +3,13 @@ package core;
 /**
  * Created by Amemiya on 5/13/15.
  */
-public class HDDID{
+public class HDDID {
     private String ipAddr;
     private String id;
-    public HDDID(String ipAddr, String id){
-        this.ipAddr=ipAddr;
-        this.id=id;
+
+    public HDDID(String ipAddr, String id) {
+        this.ipAddr = ipAddr;
+        this.id = id;
     }
 
     public String getIpAddr() {
@@ -18,19 +19,22 @@ public class HDDID{
     public String getId() {
         return id;
     }
+
     @Override
-    public boolean equals(Object o){
-        HDDID hddid=(HDDID)o;
+    public boolean equals(Object o) {
+        HDDID hddid = (HDDID) o;
         return (hddid.getIpAddr().equals(this.ipAddr)) && (hddid.getId().equals(this.id));
     }
+
     @Override
-    public int hashCode(){
-        String tmp=new String(this.ipAddr+this.id);
+    public int hashCode() {
+        String tmp = new String(this.ipAddr + this.id);
         return tmp.hashCode();
     }
+
     @Override
-    public String toString(){
-        return new String(this.ipAddr+this.id);
+    public String toString() {
+        return new String(this.ipAddr + this.id);
     }
 
 }

@@ -8,11 +8,13 @@ import eduni.simjava.Sim_predicate;
  */
 public class HDFSSimPredicate extends Sim_predicate {
     private int tag;
-    public HDFSSimPredicate(int i){
-        this.tag=i;
+
+    public HDFSSimPredicate(int i) {
+        this.tag = i;
     }
+
     @Override
     public boolean match(Sim_event sim_event) {
-        return (tag==sim_event.get_tag());
+        return (tag == sim_event.get_tag());
     }
 }

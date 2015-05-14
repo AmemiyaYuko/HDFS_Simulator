@@ -1,26 +1,29 @@
 package json;
 
-import java.util.HashMap;
-
 /**
  * Created by Amemiya on 5/12/15.
  */
 public class DiskConfig {
-    private double capacity,readSpeed,writeSpeed,seekTime;
+    private double capacity, readSpeed, writeSpeed, seekTime;
     private String id;
-    DiskConfig(String id){
-        this.id=id;
+
+    DiskConfig(String id) {
+        this.id = id;
     }
-    public void setCapacity(Double capacity){
-        this.capacity=capacity.doubleValue();
+
+    public void setCapacity(Double capacity) {
+        this.capacity = capacity.doubleValue();
     }
-    public void setSpeed(Double readSpeed,Double writeSpeed){
-        this.readSpeed=readSpeed.doubleValue();
-        this.writeSpeed=writeSpeed.doubleValue();
+
+    public void setSpeed(Double readSpeed, Double writeSpeed) {
+        this.readSpeed = readSpeed.doubleValue();
+        this.writeSpeed = writeSpeed.doubleValue();
     }
-    public void setSeekTime(Double seekTime){
-        this.seekTime=seekTime.doubleValue();
+
+    public void setSeekTime(Double seekTime) {
+        this.seekTime = seekTime.doubleValue();
     }
+
     public String getId() {
         return id;
     }

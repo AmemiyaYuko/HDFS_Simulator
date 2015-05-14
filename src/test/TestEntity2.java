@@ -11,21 +11,23 @@ import hdfssim.HDFSSimTags;
  * Created by Amemiya on 5/14/15.
  */
 public class TestEntity2 extends Sim_entity {
-    Sim_port port=new Sim_port("port");
-    TestEntity2(){
+    Sim_port port = new Sim_port("port");
+
+    TestEntity2() {
         super("b");
         add_port(port);
     }
+
     @Override
-    public void body(){
-        while (Sim_system.running()){
+    public void body() {
+        while (Sim_system.running()) {
             sim_schedule(port, 0, HDFSSimTags.WRITE_REPLICA);
 
-            Sim_event e=new Sim_event();
+            Sim_event e = new Sim_event();
             System.out.println(Sim_system.clock());
             sim_wait_for(new HDFSSimPredicate(HDFSSimTags.WRITE_REPLICA_FIN), e);
             System.out.println(Sim_system.clock());
-            while(true);
+            while (true) ;
         }
     }
 }

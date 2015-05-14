@@ -4,34 +4,31 @@ import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_port;
 import eduni.simjava.Sim_system;
-import hdfssim.Block;
 import hdfssim.HDFSSimTags;
 import hdfssim.ReadReplicaRequest;
 import hdfssim.WriteReplicaRequest;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  *
  */
-public class HDD extends Sim_entity{
+public class HDD extends Sim_entity {
     //HDDIOTask---Task information;
     private HDDID hddid;
     private double capacity;
-    private double remaining,readSpeed,writeSpeed,seekTime;
-    private Sim_port port=new Sim_port("port");
-    private HashMap<Long, Double> hostedBlocks=new HashMap<Long, Double>();
-    public HDD(HDDID hddid,double capacity,double readSpeed,double writeSpeed,double seekTime) {
+    private double remaining, readSpeed, writeSpeed, seekTime;
+    private Sim_port port = new Sim_port("port");
+    private HashMap<Long, Double> hostedBlocks = new HashMap<Long, Double>();
+
+    public HDD(HDDID hddid, double capacity, double readSpeed, double writeSpeed, double seekTime) {
         super(hddid.toString());
-        this.hddid=hddid;
-        this.capacity=capacity;
-        this.readSpeed=readSpeed;
-        this.writeSpeed=writeSpeed;
-        this.seekTime=seekTime;
-        this.remaining=capacity;
+        this.hddid = hddid;
+        this.capacity = capacity;
+        this.readSpeed = readSpeed;
+        this.writeSpeed = writeSpeed;
+        this.seekTime = seekTime;
+        this.remaining = capacity;
         add_port(port);
     }
 
@@ -59,38 +56,41 @@ public class HDD extends Sim_entity{
         return seekTime;
     }
 
-    public void expend(double size){
-        this.remaining-=size;
+    public void expend(double size) {
+        this.remaining -= size;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         String r;
-        r=hddid.toString()+" stat:";
-        r=r+"\nCapacity: "+this.capacity;
-        r=r+"\nRead Speed"+this.readSpeed;
-        r=r+"\nWrite Speed"+this.writeSpeed;
-        r=r+"\nSeek Time"+this.seekTime;
-        r=r+"\nRemaining"+this.remaining;
-        r=r+"\n-----\n";
+        r = hddid.toString() + " stat:";
+        r = r + "\nCapacity: " + this.capacity;
+        r = r + "\nRead Speed" + this.readSpeed;
+        r = r + "\nWrite Speed" + this.writeSpeed;
+        r = r + "\nSeek Time" + this.seekTime;
+        r = r + "\nRemaining" + this.remaining;
+        r = r + "\n-----\n";
         return r;
     }
+
     @Override
-    public void body(){
-        while(Sim_system.running()){
-            Sim_event e=new Sim_event();
+    public void body() {
+        while (Sim_system.running()) {
+            Sim_event e = new Sim_event();
             sim_get_next(e);
-            if (e.get_tag()== HDFSSimTags.WRITE_REPLICA){
+            if (e.get_tag() == HDFSSimTags.WRITE_REPLICA) {
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
-                WriteReplicaRequest request=(WriteReplicaRequest)e.get_data();
-                sim_schedule(port, request.consumption(this.getWriteSpeed()),HDFSSimTags.WRITE_REPLICA_FIN);
-                hostedBlocks.put(new Long(request.getBlockID()),new Double(request.getSize()));
+                WriteReplicaRequest request = (WriteReplicaRequest) e.get_data();
+                sim_schedule(port, request.consumption(this.getWriteSpeed()), HDFSSimTags.WRITE_REPLICA_FIN);
+                hostedBlocks.put(new Long(request.getBlockID()), new Double(request.getSize()));
+                remaining = remaining - request.getSize();
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }
-            if (e.get_tag()==HDFSSimTags.READ_REPLICA){
+            if (e.get_tag() == HDFSSimTags.READ_REPLICA) {
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
-                ReadReplicaRequest request=(ReadReplicaRequest)e.get_data();
+                ReadReplicaRequest request = (ReadReplicaRequest) e.get_data();
                 request.setSize(hostedBlocks.get(new Long(request.getBlockID())));
-                System.out.print("Size: "+request.getSize()+'\n');
+                System.out.print("Size: " + request.getSize() + '\n');
                 sim_schedule(port, request.consumption(this.getReadSpeed(), this.getSeekTime()), HDFSSimTags.READ_REPLICA_FIN);
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }

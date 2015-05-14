@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class NodeConfig {
     private String ipAddr;
     private double baudRate;
-    private ArrayList<DiskConfig> disks=new ArrayList<DiskConfig>();
+    private ArrayList<DiskConfig> disks = new ArrayList<DiskConfig>();
 
     public String getIpAddr() {
         return ipAddr;
@@ -25,13 +25,16 @@ public class NodeConfig {
     public void setBaudRate(double baudRate) {
         this.baudRate = baudRate;
     }
-    public void addDiskConfig(DiskConfig dc){
-        this.disks.add(disks.size(),dc);
+
+    public void addDiskConfig(DiskConfig dc) {
+        this.disks.add(disks.size(), dc);
     }
-    public ArrayList<DiskConfig> getDiskConfigs(){
+
+    public ArrayList<DiskConfig> getDiskConfigs() {
         return disks;
     }
-    public int numberOfDisks(){
+
+    public int numberOfDisks() {
         return disks.size();
     }
 }

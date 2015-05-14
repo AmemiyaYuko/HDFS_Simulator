@@ -1,5 +1,5 @@
 package json;
-import java.io.File;
+
 import java.util.ArrayList;
 
 /**
@@ -8,13 +8,15 @@ import java.util.ArrayList;
 public class DataNodeConfiguration {
     private double baudRate;
     private String ipAddr;
-    private long capacity,remaining;
-    private ArrayList<DiskConfig> diskConfigs=new ArrayList<DiskConfig>();
-    public DataNodeConfiguration(NodeConfig nc){
-        this.ipAddr=nc.getIpAddr();
-        this.baudRate=nc.getBaudRate();
-        this.diskConfigs=nc.getDiskConfigs();
+    private long capacity, remaining;
+    private ArrayList<DiskConfig> diskConfigs = new ArrayList<DiskConfig>();
+
+    public DataNodeConfiguration(NodeConfig nc) {
+        this.ipAddr = nc.getIpAddr();
+        this.baudRate = nc.getBaudRate();
+        this.diskConfigs = nc.getDiskConfigs();
     }
+
     public double getBaudRate() {
         return baudRate;
     }
