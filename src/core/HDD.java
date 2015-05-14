@@ -4,10 +4,14 @@ import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_port;
 import eduni.simjava.Sim_system;
+import hdfssim.Block;
 import hdfssim.HDFSSimTags;
 import hdfssim.ReadReplicaRequest;
 import hdfssim.WriteReplicaRequest;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -19,6 +23,7 @@ public class HDD extends Sim_entity{
     private double capacity;
     private double remaining,readSpeed,writeSpeed,seekTime;
     private Sim_port port=new Sim_port("port");
+    private HashMap<Long, Double> hostedBlocks=new HashMap<Long, Double>();
     public HDD(HDDID hddid,double capacity,double readSpeed,double writeSpeed,double seekTime) {
         super(hddid.toString());
         this.hddid=hddid;
@@ -78,12 +83,15 @@ public class HDD extends Sim_entity{
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
                 WriteReplicaRequest request=(WriteReplicaRequest)e.get_data();
                 sim_schedule(port, request.consumption(this.getWriteSpeed()),HDFSSimTags.WRITE_REPLICA_FIN);
+                hostedBlocks.put(new Long(request.getBlockID()),new Double(request.getSize()));
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }
             if (e.get_tag()==HDFSSimTags.READ_REPLICA){
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
                 ReadReplicaRequest request=(ReadReplicaRequest)e.get_data();
-                sim_schedule(port, request.consumption(this.getReadSpeed())+this.seekTime,HDFSSimTags.READ_REPLICA_FIN);
+                request.setSize(hostedBlocks.get(new Long(request.getBlockID())));
+                System.out.print("Size: "+request.getSize()+'\n');
+                sim_schedule(port, request.consumption(this.getReadSpeed(), this.getSeekTime()), HDFSSimTags.READ_REPLICA_FIN);
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }
         }

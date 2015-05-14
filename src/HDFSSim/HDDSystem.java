@@ -17,7 +17,7 @@ import java.util.Iterator;
 public class HDDSystem {
     private ArrayList<HDDID> disksID=new ArrayList<HDDID>();
     private HashMap<HDDID,HDD> disksMap=new HashMap<HDDID, HDD>();
-    private HashMap<Block,HDDID> blocksMap=new HashMap<Block, HDDID>();
+    private HashMap<Long,HDDID> blocksMap=new HashMap<Long, HDDID>();
     public HDDSystem(DataNodeConfiguration dnConfig){
         System.out.println("Initializing hard disk drivers for "+dnConfig.getIpAddr());
         ArrayList<DiskConfig> diskConfigs=dnConfig.getDiskConfigs();
@@ -44,7 +44,7 @@ public class HDDSystem {
                 idle=key;
                 waiting=val.sim_waiting();
             }
-            System.out.print("| "+Sim_system.clock()+" : "+val.getHddid().toString()+" : "+val.sim_waiting()+" |\n");
+            //System.out.print("| "+Sim_system.clock()+" : "+val.getHddid().toString()+" : "+val.sim_waiting()+" |\n");
             if (val.sim_waiting()<waiting){
                 idle=key;
                 waiting=val.sim_waiting();
@@ -54,12 +54,12 @@ public class HDDSystem {
     }
 
     public void insertReplica(HDDID hddid,Block block){
-        blocksMap.put(block, hddid);
+        blocksMap.put(new Long(block.getBlockID()), hddid);
         disksMap.get(hddid).expend(block.getSize());
     }
 
-    public HDDID getHDDID(Block block){
-        return blocksMap.get(block);
+    public HDDID getHDDID(long blockID){
+        return blocksMap.get(new Long(blockID));
     }
 
     public boolean containBlock(Block key){

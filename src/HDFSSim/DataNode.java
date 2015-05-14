@@ -46,14 +46,15 @@ public class DataNode extends Sim_entity {
         //System.out.println(Sim_system.clock());
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.WRITE_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.WRITE_REPLICA_FIN), e);
+        hddSystem.insertReplica(hddid,block);
         //System.out.println("end: " + Sim_system.clock());
     }
 
     public void readReplica(ReadReplicaRequest request){
-        Block block=(Block)request;
-        HDDID hddid=hddSystem.selectIdleHDD();
+        long blockID=request.getBlockID();
+        HDDID hddid=hddSystem.getHDDID(blockID);
         Sim_event e=new Sim_event();
-        //System.out.println(Sim_system.clock());
+        System.out.println(Sim_system.clock());
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.READ_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.READ_REPLICA_FIN), e);
         //System.out.println("end: " + Sim_system.clock());

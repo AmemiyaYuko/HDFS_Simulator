@@ -16,7 +16,7 @@ public class WriteReplicaRequest extends Block {
         return trackID;
     }
     public double consumption(double speed){
-        return this.getSize()/speed;
+        return this.getSize()/speed*1000;// 1ms per sim_system time unit
     }
     public void finish(){
         //Logger.
