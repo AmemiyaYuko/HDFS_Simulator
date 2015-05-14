@@ -9,8 +9,9 @@ import eduni.simjava.Sim_predicate;
 public class HDFSSimTags{
     public static final int END_OF_SIMULATION=-1;
     public static final int BASE=1000;
-    public static final int READ_BLOCK=BASE+1;
-    public static final int WRITE_BLOCK=BASE+2;
-    public static final int WRITE_BLOCK_FIN=BASE+3;
+    public static final int READ_REPLICA=BASE+1;
+    public static final int READ_REPLICA_FIN=BASE+2;
+    public static final int WRITE_REPLICA=BASE+3;
+    public static final int WRITE_REPLICA_FIN=BASE+4;
 
 }

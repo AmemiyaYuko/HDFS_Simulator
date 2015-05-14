@@ -3,6 +3,7 @@ package hdfssim;
 import core.HDD;
 import core.HDDID;
 
+import eduni.simjava.Sim_system;
 import json.DataNodeConfiguration;
 import json.DiskConfig;
 
@@ -43,6 +44,7 @@ public class HDDSystem {
                 idle=key;
                 waiting=val.sim_waiting();
             }
+            System.out.print("| "+Sim_system.clock()+" : "+val.getHddid().toString()+" : "+val.sim_waiting()+" |\n");
             if (val.sim_waiting()<waiting){
                 idle=key;
                 waiting=val.sim_waiting();

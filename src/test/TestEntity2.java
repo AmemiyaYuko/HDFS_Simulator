@@ -19,11 +19,11 @@ public class TestEntity2 extends Sim_entity {
     @Override
     public void body(){
         while (Sim_system.running()){
-            sim_schedule(port, 0, HDFSSimTags.WRITE_BLOCK);
+            sim_schedule(port, 0, HDFSSimTags.WRITE_REPLICA);
 
             Sim_event e=new Sim_event();
             System.out.println(Sim_system.clock());
-            sim_wait_for(new HDFSSimPredicate(HDFSSimTags.WRITE_BLOCK_FIN), e);
+            sim_wait_for(new HDFSSimPredicate(HDFSSimTags.WRITE_REPLICA_FIN), e);
             System.out.println(Sim_system.clock());
             while(true);
         }

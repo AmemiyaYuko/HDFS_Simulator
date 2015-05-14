@@ -19,7 +19,7 @@ public class TestHDDSystem extends Sim_entity{
         super("test");
     }
     public void body(){
-        sim_schedule("192.168.1.1",0.0, HDFSSimTags.WRITE_BLOCK);
+        sim_schedule("192.168.1.1",0.0, HDFSSimTags.WRITE_REPLICA);
     }
     public static void main(String[] args){
         Sim_system.initialise();

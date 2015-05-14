@@ -5,6 +5,7 @@ import eduni.simjava.Sim_event;
 import eduni.simjava.Sim_port;
 import eduni.simjava.Sim_system;
 import hdfssim.HDFSSimTags;
+import hdfssim.ReadReplicaRequest;
 import hdfssim.WriteReplicaRequest;
 
 import java.util.LinkedList;
@@ -73,11 +74,17 @@ public class HDD extends Sim_entity{
         while(Sim_system.running()){
             Sim_event e=new Sim_event();
             sim_get_next(e);
-            if (e.get_tag()== HDFSSimTags.WRITE_BLOCK){
-                System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
+            if (e.get_tag()== HDFSSimTags.WRITE_REPLICA){
+                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
                 WriteReplicaRequest request=(WriteReplicaRequest)e.get_data();
-                sim_schedule(port, request.consumption(this.getWriteSpeed()),HDFSSimTags.WRITE_BLOCK_FIN);
-                System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
+                sim_schedule(port, request.consumption(this.getWriteSpeed()),HDFSSimTags.WRITE_REPLICA_FIN);
+                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
+            }
+            if (e.get_tag()==HDFSSimTags.READ_REPLICA){
+                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
+                ReadReplicaRequest request=(ReadReplicaRequest)e.get_data();
+                sim_schedule(port, request.consumption(this.getReadSpeed())+this.seekTime,HDFSSimTags.READ_REPLICA_FIN);
+                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }
         }
     }

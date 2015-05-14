@@ -1,17 +1,14 @@
 package hdfssim;
 
-import logger.Logger;
-
 /**
- * Created by Amemiya on 5/13/15.
+ * Created by Amemiya on 5/14/15.
  */
-public class WriteReplicaRequest extends Block {
-    long trackID;
-    public WriteReplicaRequest(Block block, long trackID){
+public class ReadReplicaRequest extends Block {
+    private long trackID;
+    ReadReplicaRequest(Block block,long trackID){
         super(block);
         this.trackID=trackID;
     }
-
     public long getTrackID() {
         return trackID;
     }

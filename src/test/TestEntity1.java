@@ -26,7 +26,12 @@ public class TestEntity1 extends Sim_entity {
     @Override
     public void body(){
         WriteReplicaRequest request=new WriteReplicaRequest(new Block(new Long(25253245),1000000,new ArrayList<String>()),1234);
-        sim_schedule("port", 0.0, HDFSSimTags.WRITE_BLOCK,request);
+        sim_schedule("port", 0.0, HDFSSimTags.WRITE_REPLICA,request);
+        sim_schedule("port", 10.0, HDFSSimTags.WRITE_REPLICA,request);
+        sim_schedule("port", 15.0, HDFSSimTags.WRITE_REPLICA,request);
+        sim_schedule("port", 120.0, HDFSSimTags.WRITE_REPLICA,request);
+        sim_schedule("port", 1050.0, HDFSSimTags.WRITE_REPLICA,request);
+        sim_schedule("port", 10566.0, HDFSSimTags.WRITE_REPLICA,request);
     }
 
 }
