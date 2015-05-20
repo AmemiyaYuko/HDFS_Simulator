@@ -4,20 +4,20 @@ package logger;
  * Created by Amemiya on 5/2/15.
  */
 public class Event {
-    private double timeConsumption;
+    private double clock;
     private String name;
 
     Event(String name, double timeConsumption) {
         this.name = name;
-        this.timeConsumption = timeConsumption;
+        this.clock = timeConsumption;
     }
 
-    public double getConsumption() {
-        return this.timeConsumption;
+    public double getClock() {
+        return this.clock;
     }
 
     public String toString() {
-        return "Event \"" + this.name + ", time consumption: " + this.getConsumption();
+        return this.getClock()+" : "+this.name+'\n';
     }
 
 

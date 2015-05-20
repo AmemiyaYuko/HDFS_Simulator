@@ -17,3 +17,10 @@ hs_err_pid*
 *.json
 *.iml
 *.udb
+*.log
+
+*.json
+
+machines.json
+
+sim_report

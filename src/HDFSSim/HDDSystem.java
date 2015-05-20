@@ -16,7 +16,7 @@ public class HDDSystem {
     private ArrayList<HDDID> disksID = new ArrayList<HDDID>();
     private HashMap<HDDID, HDD> disksMap = new HashMap<HDDID, HDD>();
     private HashMap<Long, HDDID> blocksMap = new HashMap<Long, HDDID>();
-
+    //              blockID , HDDID
     public HDDSystem(DataNodeConfiguration dnConfig) {
         System.out.println("Initializing hard disk drivers for " + dnConfig.getIpAddr());
         ArrayList<DiskConfig> diskConfigs = dnConfig.getDiskConfigs();
@@ -31,22 +31,16 @@ public class HDDSystem {
         System.out.println("Hard Disk Drivers initialized!");
     }
 
-    public HDDID selectIdleHDD() {
+    public HDDID selectIdleHDD(double size) {
         HDDID idle = null;
-        int waiting = 0;
         Iterator it = disksMap.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry entry = (HashMap.Entry) it.next();
             HDD val = (HDD) entry.getValue();
             HDDID key = (HDDID) entry.getKey();
-            if (idle == null) {
-                idle = key;
-                waiting = val.sim_waiting();
-            }
             //System.out.print("| "+Sim_system.clock()+" : "+val.getHddid().toString()+" : "+val.sim_waiting()+" |\n");
-            if (val.sim_waiting() < waiting) {
+            if (val.getCapacity()>=size) {
                 idle = key;
-                waiting = val.sim_waiting();
             }
         }
         return idle;
@@ -72,6 +66,17 @@ public class HDDSystem {
             HashMap.Entry entry = (HashMap.Entry) it.next();
             HDD val = (HDD) entry.getValue();
             cap += val.getCapacity();
+        }
+        return cap;
+    }
+
+    public ArrayList<Double> getCapacities(){
+        ArrayList<Double> cap = new ArrayList<Double>();
+        Iterator it = disksMap.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry entry = (HashMap.Entry) it.next();
+            HDD val = (HDD) entry.getValue();
+            cap.add(val.getCapacity());
         }
         return cap;
     }

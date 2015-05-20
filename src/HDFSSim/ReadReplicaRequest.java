@@ -1,21 +1,23 @@
 package hdfssim;
 
+import logger.Logger;
+
 /**
  * Created by Amemiya on 5/14/15.
  */
 public class ReadReplicaRequest {
-    private long trackID;
+    private int trackID;
     private long blockID;
     private double offset;
     private double size;
 
-    public ReadReplicaRequest(long blockID, long trackID, double offset) {
+    public ReadReplicaRequest(long blockID, int trackID, double offset) {
         this.blockID = blockID;
         this.trackID = trackID;
         this.offset = offset;
     }
 
-    public long getTrackID() {
+    public int getTrackID() {
         return trackID;
     }
 
@@ -35,7 +37,7 @@ public class ReadReplicaRequest {
         return ((size - offset) / speed + seekTime) * 1000;
     }
 
-    public void finish() {
-        //Logger.
+    public void finish(long clock) {
+        Logger.newEvent(this.trackID,"Finished.",clock);
     }
 }

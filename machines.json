@@ -3,19 +3,19 @@
     "Baud Rate": 1000000.1,
     "Disk": {
       "Disk1": {
-        "Capacity": 10250000.56,
+        "Capacity": 1025000000.56,
         "Read Speed": 250000.7,
         "Write Speed": 420000.4,
         "Seek Time": 0.0093
       },
       "Disk2": {
-        "Capacity": 10250000.57,
+        "Capacity": 1025000000.57,
         "Read Speed": 250000.8,
         "Write Speed": 420000.5,
         "Seek Time": 0.0094
       },
       "Disk3": {
-        "Capacity": 10250000.58,
+        "Capacity": 1025000000.58,
         "Read Speed": 250000.9,
         "Write Speed": 100000.9,
         "Seek Time": 0.0082
@@ -27,21 +27,21 @@
     "Baud Rate": 1000000.1,
     "Disk": {
       "Disk1": {
-        "Capacity": 10250000.56,
+        "Capacity": 1025000000.56,
         "Read Speed": 250000.7,
         "Write Speed": 420000.4,
         "Seek Time": 0.0075
         ;
       },
       "Disk2": {
-        "Capacity": 10250000.57,
+        "Capacity": 1025000000.57,
         "Read Speed": 250000.8,
         "Write Speed": 420000.5,
         "Seek Time": 0.0098
         ;
       },
       "Disk3": {
-        "Capacity": 10250000.58,
+        "Capacity": 1025000000.58,
         "Read Speed": 250000.9,
         "Write Speed": 420000.9,
         "Seek Time": 0.0087
@@ -53,19 +53,19 @@
     "Baud Rate": 1000000.1,
     "Disk": {
       "Disk1": {
-        "Capacity": 10250000.56,
+        "Capacity": 1025000000.56,
         "Read Speed": 250000.7,
         "Write Speed": 420000.4,
         "Seek Time": 0.009
       },
       "Disk2": {
-        "Capacity": 10250000.57,
+        "Capacity": 1025000000.57,
         "Read Speed": 250000.8,
         "Write Speed": 420000.5,
         "Seek Time": 0.008
       },
       "Disk3": {
-        "Capacity": 10250000.58,
+        "Capacity": 1025000000.58,
         "Read Speed": 250000.9,
         "Write Speed": 420000.9,
         "Seek Time": 0.009
@@ -76,21 +76,21 @@
     "Baud Rate": 1000000.1,
     "Disk": {
       "Disk1": {
-        "Capacity": 10250000.56,
+        "Capacity": 1025000000.56,
         "Read Speed": 250000.7,
         "Write Speed": 420000.4,
         "Seek Time": 0.007
         ;
       },
       "Disk2": {
-        "Capacity": 10250000.57,
+        "Capacity": 1025000000.57,
         "Read Speed": 250000.8,
         "Write Speed": 420000.5,
         "Seek Time": 0.006
         ;
       },
       "Disk3": {
-        "Capacity": 10250000.58,
+        "Capacity": 1025000000.58,
         "Read Speed": 250000.9,
         "Write Speed": 420000.9,
         "Seek Time": 0.005
@@ -102,19 +102,19 @@
     "Baud Rate": 1000000.1,
     "Disk": {
       "Disk1": {
-        "Capacity": 10250.56,
+        "Capacity": 1025000000.56,
         "Read Speed": 250.7,
         "Write Speed": 420.4,
         "Seek Time": 9.3
       },
       "Disk2": {
-        "Capacity": 10250.57,
+        "Capacity": 1025000000.57,
         "Read Speed": 250.8,
         "Write Speed": 420.5,
         "Seek Time": 9.4
       },
       "Disk3": {
-        "Capacity": 10250.58,
+        "Capacity": 1025000000.58,
         "Read Speed": 250.9,
         "Write Speed": 420.9,
         "Seek Time": 9.9

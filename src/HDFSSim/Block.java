@@ -9,18 +9,18 @@ public class Block {
     private Long blockID;
     private double size;//kb
     // replicas of this block were stored in following datanode list
-    private ArrayList<String> dataNodeIPList = new ArrayList<String>();
+    //private ArrayList<String> dataNodeIPList = new ArrayList<String>();
 
-    public Block(Long blockID, double size, ArrayList<String> dataNodeList) {
+    public Block(Long blockID, double size) {
         this.blockID = blockID;
         this.size = size;
-        this.dataNodeIPList = new ArrayList<String>(dataNodeList);
+       // this.dataNodeIPList = new ArrayList<String>(dataNodeList);
     }
 
     Block(Block block) {
         this.blockID = block.getBlockID();
         this.size = block.getSize();
-        this.dataNodeIPList = this.getDataNodeIPList();
+       // this.dataNodeIPList = this.getDataNodeIPList();
     }
 
     public long getBlockID() {
@@ -31,9 +31,6 @@ public class Block {
         return size;
     }
 
-    public ArrayList<String> getDataNodeIPList() {
-        return dataNodeIPList;
-    }
 
     public void setSize(double size) {
         this.size = size;

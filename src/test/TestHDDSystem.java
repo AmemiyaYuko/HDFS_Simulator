@@ -4,9 +4,11 @@ import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_system;
 import hdfssim.DataNode;
 import hdfssim.HDFSSimTags;
+import hdfssim.NameNode;
 import json.DataNodeConfiguration;
 import json.JsonReader;
 
+import javax.lang.model.element.Name;
 import java.util.ArrayList;
 
 /**
@@ -17,17 +19,10 @@ public class TestHDDSystem extends Sim_entity {
         super("test");
     }
 
-    public void body() {
-        sim_schedule("192.168.1.1", 0.0, HDFSSimTags.WRITE_REPLICA);
-    }
 
     public static void main(String[] args) {
         Sim_system.initialise();
-        JsonReader jr = new JsonReader("/Users/Amemiya/Works/Code/HDFS_Simulator/machines.json");
-        ArrayList<DataNodeConfiguration> dc = new ArrayList<DataNodeConfiguration>();
-        dc.add(new DataNodeConfiguration(jr.getConfig(0)));
-        dc.add(new DataNodeConfiguration(jr.getConfig(1)));
-        DataNode dn = new DataNode(dc.get(0));
+        NameNode nm = new NameNode("/Users/Amemiya/Works/Code/HDFS_Simulator/machines.json");
         TestEntity1 t = new TestEntity1();
         Sim_system.run();
 

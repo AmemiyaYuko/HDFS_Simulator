@@ -1,5 +1,7 @@
 package hdfssim;
 
+import eduni.simjava.Sim_system;
+
 import java.util.HashSet;
 
 /**
@@ -19,8 +21,10 @@ public class BlocksCollection {
 
     public long requestNewID() {
         long id = 0;
-        while ((id < Math.pow(10, 14)) || (!this.contains(id)))
+        while ((id < Math.pow(10, 14)) || (this.contains(id))){
             id = (long) ((Math.random() * Math.pow(10, 15) + Math.pow(10, 14)) % Math.pow(10, 15));
+        }
+
         this.put(id);
         return id;
     }

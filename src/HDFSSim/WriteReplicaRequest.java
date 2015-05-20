@@ -1,17 +1,19 @@
 package hdfssim;
 
+import logger.Logger;
+
 /**
  * Created by Amemiya on 5/13/15.
  */
 public class WriteReplicaRequest extends Block {
-    long trackID;
+    int trackID;
 
-    public WriteReplicaRequest(Block block, long trackID) {
+    public WriteReplicaRequest(Block block, int trackID) {
         super(block);
         this.trackID = trackID;
     }
 
-    public long getTrackID() {
+    public int getTrackID() {
         return trackID;
     }
 
@@ -19,7 +21,7 @@ public class WriteReplicaRequest extends Block {
         return this.getSize() / speed * 1000;// 1ms per sim_system time unit
     }
 
-    public void finish() {
-        //Logger.
+    public void finish(double clock) {
+        Logger.newEvent(this.trackID, "Finished.", clock);
     }
 }
