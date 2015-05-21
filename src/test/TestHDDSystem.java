@@ -2,14 +2,7 @@ package test;
 
 import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_system;
-import hdfssim.DataNode;
-import hdfssim.HDFSSimTags;
 import hdfssim.NameNode;
-import json.DataNodeConfiguration;
-import json.JsonReader;
-
-import javax.lang.model.element.Name;
-import java.util.ArrayList;
 
 /**
  * Created by Amemiya on 5/12/15.

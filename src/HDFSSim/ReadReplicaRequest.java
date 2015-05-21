@@ -38,6 +38,6 @@ public class ReadReplicaRequest {
     }
 
     public void finish(long clock) {
-        Logger.newEvent(this.trackID,"Finished.",clock);
+        Logger.newEvent(this.trackID, "Finished.", clock);
     }
 }

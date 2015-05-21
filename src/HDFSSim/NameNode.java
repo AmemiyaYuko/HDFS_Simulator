@@ -25,7 +25,7 @@ public class NameNode extends Sim_entity {
     BlocksCollection blocksCollection = new BlocksCollection();
     private HashMap<String, DataNode> dataNodesMap = new HashMap<String, DataNode>();
     //              ip addr, datanode
-    private static final double MAX_BYTES_PER_BLOCK=64*1024;
+    private static final double MAX_BYTES_PER_BLOCK = 64 * 1024;
 
     public NameNode(String path) {
         super("namenode");
@@ -41,54 +41,80 @@ public class NameNode extends Sim_entity {
         add_port(toUser);
     }
 
-    private Block blockConstruction(double size){
-        long id=blocksCollection.requestNewID();
-        Block b=new Block(id,size);
+    private Block blockConstruction(double size) {
+        long id = blocksCollection.requestNewID();
+        Block b = new Block(id, size);
         return b;
     }
 
-    private ArrayList<Block> fileSplitter(double size){
-        double remaining=size;
-        ArrayList<Block> blocks=new ArrayList<Block>();
-        while (remaining>MAX_BYTES_PER_BLOCK){
-            remaining=remaining-MAX_BYTES_PER_BLOCK;
-            Block b=blockConstruction(MAX_BYTES_PER_BLOCK);
+    private ArrayList<Block> fileSplitter(double size) {
+        double remaining = size;
+        ArrayList<Block> blocks = new ArrayList<Block>();
+        while (remaining > MAX_BYTES_PER_BLOCK) {
+            remaining = remaining - MAX_BYTES_PER_BLOCK;
+            Block b = blockConstruction(MAX_BYTES_PER_BLOCK);
             blocks.add(b);
         }
-        if (remaining>0){
-            Block b=blockConstruction(remaining);
+        if (remaining > 0) {
+            Block b = blockConstruction(remaining);
             blocks.add(b);
         }
         return blocks;
     }
-    private void writeBlock(Block block, int trackID){
-        WriteReplicaRequest request=new WriteReplicaRequest(block,trackID);
-        ArrayList<String> ipList=new ArrayList<String>();
-        int remain=3;
-        Set set = dataNodesMap.entrySet() ;
+
+    private void writeBlock(Block block, int trackID) {
+        WriteReplicaRequest request = new WriteReplicaRequest(block, trackID);
+        ArrayList<String> ipList = new ArrayList<String>();
+        int remain = 3;
+        Set set = dataNodesMap.entrySet();
         java.util.Iterator it = dataNodesMap.entrySet().iterator();
-        while ((it.hasNext())&&(remain>0)){
-            java.util.Map.Entry entry = (java.util.Map.Entry)it.next();
-            DataNode dn=(DataNode)entry.getValue();
+        while ((it.hasNext()) && (remain > 0)) {
+            java.util.Map.Entry entry = (java.util.Map.Entry) it.next();
+            DataNode dn = (DataNode) entry.getValue();
             if (dn.available(block.getSize())) {
-                Logger.newEvent(trackID,"Send write block event to "+dn.getIpAddr(),Sim_system.clock());
+                Logger.newEvent(trackID, "Send write block event to " + dn.getIpAddr(), Sim_system.clock());
                 sim_schedule(dn.getIpAddr(), 0.0, HDFSSimTags.WRITE_REPLICA, request);
                 ipList.add(dn.getIpAddr());
                 remain--;
             }
         }
-        inode.put(Long.valueOf(block.getBlockID()),ipList);
+        inode.put(Long.valueOf(block.getBlockID()), ipList);
     }
-    private void writeNewFile(String fileName,double size){
-        ArrayList<Block> blocksList=fileSplitter(size);
-        ArrayList<Long> blocksIDList=new ArrayList<Long>();
-        int trackID=Logger.newTrack("Writing"+fileName,Sim_system.clock());
-        Logger.newEvent(trackID,fileName+" was splitted into "+blocksList.size()+" blocks",Sim_system.clock());
-        for (int i=0;i<blocksList.size();i++){
+
+    private void writeNewFile(String fileName, double size) {
+        ArrayList<Block> blocksList = fileSplitter(size);
+        ArrayList<Long> blocksIDList = new ArrayList<Long>();
+        int trackID = Logger.newTrack("Writing" + fileName, Sim_system.clock());
+        Logger.newEvent(trackID, fileName + " was splitted into " + blocksList.size() + " blocks", Sim_system.clock());
+        for (int i = 0; i < blocksList.size(); i++) {
             blocksIDList.add(blocksList.get(i).getBlockID());
             writeBlock(blocksList.get(i), trackID);
         }
-        namespace.put(fileName,blocksIDList);
+        namespace.put(fileName, blocksIDList);
+    }
+
+    private void readFile(String fileName, double offset) {
+        List<Long> blockIDList = namespace.get(fileName);
+        int trackID = Logger.newTrack("Read" + fileName, Sim_system.clock());
+        for (int i = 0; i < blockIDList.size(); i++) {
+            Long blockID = blockIDList.get(i);
+            List<String> ipList = inode.get(blockID);
+            String ipAddr = ipList.get(0);
+            DataNode dn = dataNodesMap.get(ipAddr);
+            int waiting = dn.sim_waiting();
+            for (int j = 1; j < ipList.size(); j++) {
+                if (dataNodesMap.get(ipList.get(j)).sim_waiting() < waiting) {
+                    ipAddr = ipList.get(j);
+                    dn = dataNodesMap.get(ipAddr);
+                    waiting = dn.sim_waiting();
+                }
+            }
+            Logger.newEvent(trackID, "Sending block " + blockID + " request to " + ipAddr, Sim_system.clock());
+            ReadReplicaRequest request = new ReadReplicaRequest(blockID.longValue(), trackID, offset);
+            sim_schedule(ipAddr, 0.0, HDFSSimTags.READ_REPLICA, request);
+
+        }
+
     }
 
     @Override
@@ -99,7 +125,14 @@ public class NameNode extends Sim_entity {
             if (e.get_tag() == HDFSSimTags.WRITE_NEW_FILE) {
                 WriteNewFileRequest request = (WriteNewFileRequest) e.get_data();
                 writeNewFile(request.getFileName(), request.getSize());
-
+            }
+            if (e.get_tag() == HDFSSimTags.READ_FILE) {
+                ReadFileRequest request = (ReadFileRequest) e.get_data();
+                if (inode.containsKey(request.getFileName())) {
+                    readFile(request.getFileName(), request.getOffset());
+                } else {
+                    System.out.println("File " + request.getFileName() + " does not exist!");
+                }
             }
         }
     }

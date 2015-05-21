@@ -82,15 +82,15 @@ public class HDD extends Sim_entity {
             if (e.get_tag() == HDFSSimTags.WRITE_REPLICA) {
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
                 WriteReplicaRequest request = (WriteReplicaRequest) e.get_data();
-                if (remaining>request.getSize()){
+                if (remaining > request.getSize()) {
                     remaining = remaining - request.getSize();
                     hostedBlocks.put(new Long(request.getBlockID()), new Double(request.getSize()));
-                    Logger.newEvent(request.getTrackID(),"Start writing block "+request.getBlockID()+" to HDD "+hddid.toString(),Sim_system.clock());
+                    Logger.newEvent(request.getTrackID(), "Start writing block " + request.getBlockID() + " to HDD " + hddid.toString(), Sim_system.clock());
                 } else {
-                    Logger.newEvent(request.getTrackID(),"Write block failed.",Sim_system.clock());
+                    Logger.newEvent(request.getTrackID(), "Write block failed.", Sim_system.clock());
                     System.out.print("Write Failed");
                 }
-                sim_schedule(port, request.consumption(this.getWriteSpeed()), HDFSSimTags.WRITE_REPLICA_FIN);
+                sim_schedule(port, request.consumption(this.getWriteSpeed(), this.getSeekTime()), HDFSSimTags.WRITE_REPLICA_FIN);
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }
             if (e.get_tag() == HDFSSimTags.READ_REPLICA) {
@@ -99,9 +99,9 @@ public class HDD extends Sim_entity {
                 request.setSize(hostedBlocks.get(new Long(request.getBlockID())));
                 //System.out.print("Size: " + request.getSize() + '\n');
                 if (this.hostedBlocks.containsKey(Long.valueOf(request.getBlockID())))
-                    Logger.newEvent(request.getTrackID(),"Start reading block "+request.getBlockID()+" from "+hddid.toString(),Sim_system.clock());
+                    Logger.newEvent(request.getTrackID(), "Start reading block " + request.getBlockID() + " from " + hddid.toString(), Sim_system.clock());
                 else
-                    Logger.newEvent(request.getTrackID(),"Did not find block "+request.getBlockID()+" in "+hddid.toString(),Sim_system.clock());
+                    Logger.newEvent(request.getTrackID(), "Did not find block " + request.getBlockID() + " in " + hddid.toString(), Sim_system.clock());
                 sim_schedule(port, request.consumption(this.getReadSpeed(), this.getSeekTime()), HDFSSimTags.READ_REPLICA_FIN);
                 //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }

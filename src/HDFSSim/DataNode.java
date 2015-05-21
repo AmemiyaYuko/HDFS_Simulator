@@ -47,7 +47,7 @@ public class DataNode extends Sim_entity {
         //System.out.println(Sim_system.clock());
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.WRITE_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.WRITE_REPLICA_FIN), e);
-        Logger.newEvent(request.getTrackID(), "Finished writing block"+request.getBlockID()+" to HDD " + hddid.toString(), Sim_system.clock());
+        Logger.newEvent(request.getTrackID(), "Finished writing block" + request.getBlockID() + " to HDD " + hddid.toString(), Sim_system.clock());
         hddSystem.insertReplica(hddid, block);
         //System.out.println("end: " + Sim_system.clock());
     }
@@ -59,7 +59,7 @@ public class DataNode extends Sim_entity {
         System.out.println(Sim_system.clock());
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.READ_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.READ_REPLICA_FIN), e);
-        Logger.newEvent(request.getTrackID(), "Finished reading block "+request.getBlockID()+" from "+ hddid.toString(), Sim_system.clock());
+        Logger.newEvent(request.getTrackID(), "Finished reading block " + request.getBlockID() + " from " + hddid.toString(), Sim_system.clock());
         //System.out.println("end: " + Sim_system.clock());
     }
 
@@ -78,9 +78,10 @@ public class DataNode extends Sim_entity {
     public double getBaudRate() {
         return baudRate;
     }
-    public boolean available(double size){
-        for (int i=0;i<hddSystem.getDisksID().size();i++){
-            if (hddSystem.getCapacities().get(i).doubleValue()>size){
+
+    public boolean available(double size) {
+        for (int i = 0; i < hddSystem.getDisksID().size(); i++) {
+            if (hddSystem.getCapacities().get(i).doubleValue() > size) {
                 return true;
             }
         }
@@ -94,12 +95,12 @@ public class DataNode extends Sim_entity {
             sim_get_next(e);
             if (e.get_tag() == HDFSSimTags.WRITE_REPLICA) {
                 WriteReplicaRequest request = (WriteReplicaRequest) e.get_data();
-                Logger.newEvent(request.getTrackID(),"DataNode "+this.ipAddr+" received.",Sim_system.clock());
+                Logger.newEvent(request.getTrackID(), "DataNode " + this.ipAddr + " received.", Sim_system.clock());
                 insertReplica(request);
             }
             if (e.get_tag() == HDFSSimTags.READ_REPLICA) {
                 ReadReplicaRequest request = (ReadReplicaRequest) e.get_data();
-                Logger.newEvent(request.getTrackID(),"DataNode "+this.ipAddr+" received.",Sim_system.clock());
+                Logger.newEvent(request.getTrackID(), "DataNode " + this.ipAddr + " received.", Sim_system.clock());
                 readReplica(request);
             }
         }

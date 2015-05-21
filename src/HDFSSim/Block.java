@@ -1,7 +1,5 @@
 package hdfssim;
 
-import java.util.ArrayList;
-
 /**
  * Created by Amemiya on 4/23/15.
  */
@@ -14,13 +12,13 @@ public class Block {
     public Block(Long blockID, double size) {
         this.blockID = blockID;
         this.size = size;
-       // this.dataNodeIPList = new ArrayList<String>(dataNodeList);
+        // this.dataNodeIPList = new ArrayList<String>(dataNodeList);
     }
 
     Block(Block block) {
         this.blockID = block.getBlockID();
         this.size = block.getSize();
-       // this.dataNodeIPList = this.getDataNodeIPList();
+        // this.dataNodeIPList = this.getDataNodeIPList();
     }
 
     public long getBlockID() {

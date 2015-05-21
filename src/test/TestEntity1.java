@@ -3,11 +3,11 @@ package test;
 import eduni.simjava.Sim_entity;
 import eduni.simjava.Sim_port;
 import eduni.simjava.Sim_system;
-import hdfssim.*;
+import hdfssim.HDFSSimTags;
+import hdfssim.WriteNewFileRequest;
 import logger.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Amemiya on 5/14/15.
@@ -27,8 +27,8 @@ public class TestEntity1 extends Sim_entity {
 
     @Override
     public void body() {
-        WriteNewFileRequest request=new WriteNewFileRequest("noob",900240);
-        sim_schedule("port",0.0,HDFSSimTags.WRITE_NEW_FILE,request);
+        WriteNewFileRequest request = new WriteNewFileRequest("noob", 900240);
+        sim_schedule("port", 0.0, HDFSSimTags.WRITE_NEW_FILE, request);
 
         sim_pause(100000000);
         try {

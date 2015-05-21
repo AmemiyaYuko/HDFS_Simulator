@@ -17,7 +17,7 @@ public class Event {
     }
 
     public String toString() {
-        return this.getClock()+" : "+this.name+'\n';
+        return this.getClock() + " : " + this.name + '\n';
     }
 
 

@@ -18,9 +18,9 @@ public class Track {
     private double startClock;
     private String name;
 
-    Track(String name,double startClock) {
+    Track(String name, double startClock) {
         this.name = name;
-        this.startClock=startClock;
+        this.startClock = startClock;
     }
 
     public void newEvent(String name, double clock) {
@@ -37,10 +37,10 @@ public class Track {
         FileWriter fileWriter = new FileWriter(file.getName(), true);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write("Task: \"" + name + "\" :\n");
-        bufferedWriter.write("Start at : "+this.startClock+". End at : "+this.lastClock+'\n');
+        bufferedWriter.write("Start at : " + this.startClock + ". End at : " + this.lastClock + '\n');
         for (int i = 0; i < events.size(); i++)
             bufferedWriter.write(events.get(i).toString());
-        bufferedWriter.write("----------\nTime Consumption:" + String.valueOf(this.lastClock-this.startClock));
+        bufferedWriter.write("----------\nTime Consumption:" + String.valueOf(this.lastClock - this.startClock));
         bufferedWriter.close();
         fileWriter.close();
 

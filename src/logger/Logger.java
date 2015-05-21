@@ -1,7 +1,5 @@
 package logger;
 
-import eduni.simjava.Sim_system;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,9 +10,9 @@ public class Logger {
     public static ArrayList<Track> tracks = new ArrayList<Track>();
     private static int lastTrackID = -1;
 
-    public static int newTrack(String name,double startClock) {
+    public static int newTrack(String name, double startClock) {
         lastTrackID++;
-        tracks.add(new Track(name,startClock));
+        tracks.add(new Track(name, startClock));
         return lastTrackID;
     }
 
@@ -23,8 +21,8 @@ public class Logger {
             tracks.get(i).output();
     }
 
-    public static void newEvent(int trackID, String name,double clock) {
-        tracks.get(trackID).newEvent(name,clock);
+    public static void newEvent(int trackID, String name, double clock) {
+        tracks.get(trackID).newEvent(name, clock);
     }
 
 }

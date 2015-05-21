@@ -16,6 +16,7 @@ public class HDDSystem {
     private ArrayList<HDDID> disksID = new ArrayList<HDDID>();
     private HashMap<HDDID, HDD> disksMap = new HashMap<HDDID, HDD>();
     private HashMap<Long, HDDID> blocksMap = new HashMap<Long, HDDID>();
+
     //              blockID , HDDID
     public HDDSystem(DataNodeConfiguration dnConfig) {
         System.out.println("Initializing hard disk drivers for " + dnConfig.getIpAddr());
@@ -39,7 +40,7 @@ public class HDDSystem {
             HDD val = (HDD) entry.getValue();
             HDDID key = (HDDID) entry.getKey();
             //System.out.print("| "+Sim_system.clock()+" : "+val.getHddid().toString()+" : "+val.sim_waiting()+" |\n");
-            if (val.getCapacity()>=size) {
+            if (val.getCapacity() >= size) {
                 idle = key;
             }
         }
@@ -70,7 +71,7 @@ public class HDDSystem {
         return cap;
     }
 
-    public ArrayList<Double> getCapacities(){
+    public ArrayList<Double> getCapacities() {
         ArrayList<Double> cap = new ArrayList<Double>();
         Iterator it = disksMap.entrySet().iterator();
         while (it.hasNext()) {
