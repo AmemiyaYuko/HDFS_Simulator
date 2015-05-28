@@ -16,16 +16,16 @@ import java.util.Set;
  * Created by AmemiyaYuko on 2015/4/28.
  */
 public class NameNode extends Sim_entity {
+    //              ip addr, datanode
+    private static final double MAX_BYTES_PER_BLOCK = 64 * 1024;
+    BlocksCollection blocksCollection = new BlocksCollection();
     private HashMap<Long, List> inode = new HashMap<Long, List>();
     //              block id, datanode ip addr list
     private HashMap<String, List> namespace = new HashMap<String, List>();
     //              file name, block id list
     private ArrayList<Sim_port> toDataNodes = new ArrayList<Sim_port>();
     private Sim_port toUser = new Sim_port("port");
-    BlocksCollection blocksCollection = new BlocksCollection();
     private HashMap<String, DataNode> dataNodesMap = new HashMap<String, DataNode>();
-    //              ip addr, datanode
-    private static final double MAX_BYTES_PER_BLOCK = 64 * 1024;
 
     public NameNode(String path) {
         super("namenode");
@@ -128,7 +128,7 @@ public class NameNode extends Sim_entity {
             }
             if (e.get_tag() == HDFSSimTags.READ_FILE) {
                 ReadFileRequest request = (ReadFileRequest) e.get_data();
-                if (inode.containsKey(request.getFileName())) {
+                if (namespace.containsKey(request.getFileName())) {
                     readFile(request.getFileName(), request.getOffset());
                 } else {
                     System.out.println("File " + request.getFileName() + " does not exist!");

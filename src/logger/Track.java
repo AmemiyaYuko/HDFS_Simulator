@@ -13,9 +13,9 @@ import java.util.ArrayList;
 // Every single query request has its own Tracer.
 public class Track {
     private ArrayList<Event> events = new ArrayList<Event>();
-    private long lastClock = 0;
+    private double lastClock = 0;
     private int lastEventID = -1;
-    private double startClock;
+    private double startClock = 0;
     private String name;
 
     Track(String name, double startClock) {
@@ -26,15 +26,18 @@ public class Track {
     public void newEvent(String name, double clock) {
         lastEventID++;
         events.add(new Event(name, clock));
-        lastClock += events.get(lastEventID).getClock();
+        lastClock = events.get(events.size() - 1).getClock();
     }
 
     public void output() throws IOException {
         File file = new File(name + ".log");
-        if (!file.exists()) {
-            file.createNewFile();
+        int num = 1;
+        while (file.exists()) {
+            file = new File(name + "_" + num + ".log");
+            num++;
         }
-        FileWriter fileWriter = new FileWriter(file.getName(), true);
+        file.createNewFile();
+        FileWriter fileWriter = new FileWriter(file.getName(), false);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write("Task: \"" + name + "\" :\n");
         bufferedWriter.write("Start at : " + this.startClock + ". End at : " + this.lastClock + '\n');
@@ -43,6 +46,5 @@ public class Track {
         bufferedWriter.write("----------\nTime Consumption:" + String.valueOf(this.lastClock - this.startClock));
         bufferedWriter.close();
         fileWriter.close();
-
     }
 }

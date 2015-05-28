@@ -19,4 +19,9 @@ public class WriteNewFileRequest {
     public double getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        return new String("Write request: file name=" + fileName + " size=" + size + '\n');
+    }
 }

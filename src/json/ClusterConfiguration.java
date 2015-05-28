@@ -21,12 +21,12 @@ public class ClusterConfiguration {
         return dataNodeConfigurations;
     }
 
-    public DataNodeConfiguration getDataNodeConfiguration(int i) {
-        return dataNodeConfigurations.get(i);
-    }
-
     public void setDataNodeConfigurations(ArrayList<DataNodeConfiguration> dataNodeConfigurations) {
         this.dataNodeConfigurations = dataNodeConfigurations;
+    }
+
+    public DataNodeConfiguration getDataNodeConfiguration(int i) {
+        return dataNodeConfigurations.get(i);
     }
 
     public int getSize() {

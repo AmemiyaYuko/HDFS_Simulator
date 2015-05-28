@@ -19,4 +19,9 @@ public class ReadFileRequest {
     public double getOffset() {
         return offset;
     }
+
+    @Override
+    public String toString() {
+        return new String("Read request: file name=" + fileName + " offset=" + offset + '\n');
+    }
 }

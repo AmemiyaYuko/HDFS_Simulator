@@ -11,17 +11,9 @@ public class DiskConfig {
         this.id = id;
     }
 
-    public void setCapacity(Double capacity) {
-        this.capacity = capacity.doubleValue();
-    }
-
     public void setSpeed(Double readSpeed, Double writeSpeed) {
         this.readSpeed = readSpeed.doubleValue();
         this.writeSpeed = writeSpeed.doubleValue();
-    }
-
-    public void setSeekTime(Double seekTime) {
-        this.seekTime = seekTime.doubleValue();
     }
 
     public String getId() {
@@ -30,6 +22,10 @@ public class DiskConfig {
 
     public double getCapacity() {
         return capacity;
+    }
+
+    public void setCapacity(Double capacity) {
+        this.capacity = capacity.doubleValue();
     }
 
     public double getReadSpeed() {
@@ -42,5 +38,9 @@ public class DiskConfig {
 
     public double getSeekTime() {
         return seekTime;
+    }
+
+    public void setSeekTime(Double seekTime) {
+        this.seekTime = seekTime.doubleValue();
     }
 }

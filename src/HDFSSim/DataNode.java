@@ -41,26 +41,21 @@ public class DataNode extends Sim_entity {
 
     public void insertReplica(WriteReplicaRequest request) {
         Block block = (Block) request;
-        //System.out.print(block.getBlockID());
         HDDID hddid = hddSystem.selectIdleHDD(request.getSize());
         Sim_event e = new Sim_event();
-        //System.out.println(Sim_system.clock());
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.WRITE_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.WRITE_REPLICA_FIN), e);
-        Logger.newEvent(request.getTrackID(), "Finished writing block" + request.getBlockID() + " to HDD " + hddid.toString(), Sim_system.clock());
+        Logger.newEvent(request.getTrackID(), "Finished writing block " + request.getBlockID() + " to HDD " + hddid.toString(), Sim_system.clock());
         hddSystem.insertReplica(hddid, block);
-        //System.out.println("end: " + Sim_system.clock());
     }
 
     public void readReplica(ReadReplicaRequest request) {
         long blockID = request.getBlockID();
         HDDID hddid = hddSystem.getHDDID(blockID);
         Sim_event e = new Sim_event();
-        System.out.println(Sim_system.clock());
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.READ_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.READ_REPLICA_FIN), e);
         Logger.newEvent(request.getTrackID(), "Finished reading block " + request.getBlockID() + " from " + hddid.toString(), Sim_system.clock());
-        //System.out.println("end: " + Sim_system.clock());
     }
 
     public String getIpAddr() {

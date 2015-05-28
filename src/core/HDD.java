@@ -85,6 +85,7 @@ public class HDD extends Sim_entity {
                 if (remaining > request.getSize()) {
                     remaining = remaining - request.getSize();
                     hostedBlocks.put(new Long(request.getBlockID()), new Double(request.getSize()));
+                    // System.out.println(request.getBlockID());
                     Logger.newEvent(request.getTrackID(), "Start writing block " + request.getBlockID() + " to HDD " + hddid.toString(), Sim_system.clock());
                 } else {
                     Logger.newEvent(request.getTrackID(), "Write block failed.", Sim_system.clock());
