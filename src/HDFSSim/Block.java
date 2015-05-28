@@ -6,8 +6,6 @@ package hdfssim;
 public class Block {
     private Long blockID;
     private double size;//kb
-    // replicas of this block were stored in following datanode list
-    //private ArrayList<String> dataNodeIPList = new ArrayList<String>();
 
     public Block(Long blockID, double size) {
         this.blockID = blockID;

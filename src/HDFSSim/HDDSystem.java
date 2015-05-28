@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * Created by Amemiya on 5/9/15.
+ * Every datanode has its own hddsystem to manage HDDs.
  */
 public class HDDSystem {
     private ArrayList<HDDID> disksID = new ArrayList<HDDID>();

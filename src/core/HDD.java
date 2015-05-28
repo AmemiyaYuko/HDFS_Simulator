@@ -12,7 +12,10 @@ import logger.Logger;
 import java.util.HashMap;
 
 /**
- *
+ * HDD means Hard Disk Driver. each datanode has a number of disk, and the I/O speed of
+ * every disk could be different.
+ * This class stored some necessary information of each disk, such as capacity, I/O speed,
+ * seek time and blocks that hosted in this disk.
  */
 public class HDD extends Sim_entity {
     private HDDID hddid;
@@ -80,31 +83,25 @@ public class HDD extends Sim_entity {
             Sim_event e = new Sim_event();
             sim_get_next(e);
             if (e.get_tag() == HDFSSimTags.WRITE_REPLICA) {
-                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
                 WriteReplicaRequest request = (WriteReplicaRequest) e.get_data();
                 if (remaining > request.getSize()) {
                     remaining = remaining - request.getSize();
                     hostedBlocks.put(new Long(request.getBlockID()), new Double(request.getSize()));
-                    // System.out.println(request.getBlockID());
                     Logger.newEvent(request.getTrackID(), "Start writing block " + request.getBlockID() + " to HDD " + hddid.toString(), Sim_system.clock());
                 } else {
                     Logger.newEvent(request.getTrackID(), "Write block failed.", Sim_system.clock());
                     System.out.print("Write Failed");
                 }
                 sim_schedule(port, request.consumption(this.getWriteSpeed(), this.getSeekTime()), HDFSSimTags.WRITE_REPLICA_FIN);
-                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }
             if (e.get_tag() == HDFSSimTags.READ_REPLICA) {
-                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "received");
                 ReadReplicaRequest request = (ReadReplicaRequest) e.get_data();
                 request.setSize(hostedBlocks.get(new Long(request.getBlockID())));
-                //System.out.print("Size: " + request.getSize() + '\n');
                 if (this.hostedBlocks.containsKey(Long.valueOf(request.getBlockID())))
                     Logger.newEvent(request.getTrackID(), "Start reading block " + request.getBlockID() + " from " + hddid.toString(), Sim_system.clock());
                 else
                     Logger.newEvent(request.getTrackID(), "Did not find block " + request.getBlockID() + " in " + hddid.toString(), Sim_system.clock());
                 sim_schedule(port, request.consumption(this.getReadSpeed(), this.getSeekTime()), HDFSSimTags.READ_REPLICA_FIN);
-                //System.out.println(this.hddid.toString() + " " + Sim_system.clock() + "finished");
             }
         }
     }

@@ -1,7 +1,9 @@
 package core;
 
 /**
- * Created by Amemiya on 5/13/15.
+ * Every HDD has an unique HDDID. HDDID is a combination of IP address and disk ID.
+ * Method equals , hashCode and toString are overrided in this class, so that HDDID
+ * could be considered as key for HashMap
  */
 public class HDDID {
     private String ipAddr;

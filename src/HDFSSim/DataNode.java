@@ -11,7 +11,9 @@ import logger.Logger;
 import java.util.ArrayList;
 
 /**
- * Created by Amemiya on 4/25/15.
+ * DataNode class stored some basic information for simulation. When I/O request received,
+ * DataNode would call hddSystem class to fill the expected consumption.
+ *
  */
 public class DataNode extends Sim_entity {
     private String ipAddr;

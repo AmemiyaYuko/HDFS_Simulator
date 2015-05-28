@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 /**
  * Created by Amemiya on 4/28/15.
- * Block collection class take the place of block report which serves as a important part of real hadoop system
+ * Block collection class takes the place of block report.
  */
 public class BlocksCollection {
     private HashSet<Long> allBlocks = new HashSet<Long>(0);
