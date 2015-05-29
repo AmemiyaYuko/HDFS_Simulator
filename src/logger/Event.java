@@ -7,9 +7,9 @@ public class Event {
     private double clock;
     private String name;
 
-    Event(String name, double timeConsumption) {
+    Event(String name, double clock) {
         this.name = name;
-        this.clock = timeConsumption;
+        this.clock = clock;
     }
 
     public double getClock() {
