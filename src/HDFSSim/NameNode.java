@@ -95,24 +95,29 @@ public class NameNode extends Sim_entity {
 
     private void readFile(String fileName, double offset) {
         List<Long> blockIDList = namespace.get(fileName);
+        double iOffset=offset;
         int trackID = Logger.newTrack("Read" + fileName, Sim_system.clock());
         for (int i = 0; i < blockIDList.size(); i++) {
-            Long blockID = blockIDList.get(i);
-            List<String> ipList = inode.get(blockID);
-            String ipAddr = ipList.get(0);
-            DataNode dn = dataNodesMap.get(ipAddr);
-            int waiting = dn.sim_waiting();
-            for (int j = 1; j < ipList.size(); j++) {
-                if (dataNodesMap.get(ipList.get(j)).sim_waiting() < waiting) {
-                    ipAddr = ipList.get(j);
-                    dn = dataNodesMap.get(ipAddr);
-                    waiting = dn.sim_waiting();
+            if (iOffset<MAX_BYTES_PER_BLOCK) {
+                Long blockID = blockIDList.get(i);
+                List<String> ipList = inode.get(blockID);
+                String ipAddr = ipList.get(0);
+                DataNode dn = dataNodesMap.get(ipAddr);
+                int waiting = dn.sim_waiting();
+                for (int j = 1; j < ipList.size(); j++) {
+                    if (dataNodesMap.get(ipList.get(j)).sim_waiting() < waiting) {
+                        ipAddr = ipList.get(j);
+                        dn = dataNodesMap.get(ipAddr);
+                        waiting = dn.sim_waiting();
+                    }
                 }
+                Logger.newEvent(trackID, "Sending block " + blockID + " request to " + ipAddr, Sim_system.clock());
+                ReadReplicaRequest request = new ReadReplicaRequest(blockID.longValue(), trackID, iOffset);
+                if (iOffset!=0) iOffset=0;
+                sim_schedule(ipAddr, 0.0, HDFSSimTags.READ_REPLICA, request);
+            }else{
+                iOffset=iOffset-MAX_BYTES_PER_BLOCK;
             }
-            Logger.newEvent(trackID, "Sending block " + blockID + " request to " + ipAddr, Sim_system.clock());
-            ReadReplicaRequest request = new ReadReplicaRequest(blockID.longValue(), trackID, offset);
-            sim_schedule(ipAddr, 0.0, HDFSSimTags.READ_REPLICA, request);
-
         }
 
     }
