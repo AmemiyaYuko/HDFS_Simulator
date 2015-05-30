@@ -62,43 +62,55 @@ public class NameNode extends Sim_entity {
         return blocks;
     }
 
-    private void writeBlock(Block block, int trackID) {
+    private void writeBlock(Block block, int trackID, HashMap<String,Integer> futureEvent) {
         WriteReplicaRequest request = new WriteReplicaRequest(block, trackID);
         ArrayList<String> ipList = new ArrayList<String>();
         int remain = 3;
-        Set set = dataNodesMap.entrySet();
-        java.util.Iterator it = dataNodesMap.entrySet().iterator();
-        while ((it.hasNext()) && (remain > 0)) {
-            java.util.Map.Entry entry = (java.util.Map.Entry) it.next();
-            DataNode dn = (DataNode) entry.getValue();
-            if (dn.available(block.getSize())) {
-                Logger.newEvent(trackID, "Send write block event to " + dn.getIpAddr(), Sim_system.clock());
-                sim_schedule(dn.getIpAddr(), 0.0, HDFSSimTags.WRITE_REPLICA, request);
-                ipList.add(dn.getIpAddr());
-                remain--;
+
+        for (int i = 0; i < 3; i++) {
+            Set set = dataNodesMap.entrySet();
+            java.util.Iterator it = dataNodesMap.entrySet().iterator();
+            int waiting = 999999;
+            String ipAddr=new String();
+            while (it.hasNext()) {
+                java.util.Map.Entry entry = (java.util.Map.Entry) it.next();
+                DataNode dn = (DataNode) entry.getValue();
+                Integer dnWaiting=dn.sim_waiting();
+                if (futureEvent.containsKey(dn.getIpAddr())){
+                    dnWaiting=dnWaiting+futureEvent.get(dn.getIpAddr());
+                }
+                if (dn.available(block.getSize()) && (dnWaiting < waiting)) {
+                    ipAddr=dn.getIpAddr();
+                    waiting=dnWaiting;
+                }
             }
+            Logger.newEvent(trackID, "Send write block event to " + ipAddr, Sim_system.clock());
+            sim_schedule(ipAddr, 0.0, HDFSSimTags.WRITE_REPLICA, request);
+            ipList.add(ipAddr);
+            futureEvent.put(ipAddr,waiting+1);
         }
         inode.put(Long.valueOf(block.getBlockID()), ipList);
     }
 
     private void writeNewFile(String fileName, double size) {
+        HashMap<String,Integer> futureEvent=new HashMap<String, Integer>(0);
         ArrayList<Block> blocksList = fileSplitter(size);
         ArrayList<Long> blocksIDList = new ArrayList<Long>();
         int trackID = Logger.newTrack("Writing" + fileName, Sim_system.clock());
         Logger.newEvent(trackID, fileName + " was splitted into " + blocksList.size() + " blocks", Sim_system.clock());
         for (int i = 0; i < blocksList.size(); i++) {
             blocksIDList.add(blocksList.get(i).getBlockID());
-            writeBlock(blocksList.get(i), trackID);
+            writeBlock(blocksList.get(i), trackID,futureEvent);
         }
         namespace.put(fileName, blocksIDList);
     }
 
     private void readFile(String fileName, double offset) {
         List<Long> blockIDList = namespace.get(fileName);
-        double iOffset=offset;
+        double iOffset = offset;
         int trackID = Logger.newTrack("Read" + fileName, Sim_system.clock());
         for (int i = 0; i < blockIDList.size(); i++) {
-            if (iOffset<MAX_BYTES_PER_BLOCK) {
+            if (iOffset < MAX_BYTES_PER_BLOCK) {
                 Long blockID = blockIDList.get(i);
                 List<String> ipList = inode.get(blockID);
                 String ipAddr = ipList.get(0);
@@ -113,10 +125,10 @@ public class NameNode extends Sim_entity {
                 }
                 Logger.newEvent(trackID, "Sending block " + blockID + " request to " + ipAddr, Sim_system.clock());
                 ReadReplicaRequest request = new ReadReplicaRequest(blockID.longValue(), trackID, iOffset);
-                if (iOffset!=0) iOffset=0;
+                if (iOffset != 0) iOffset = 0;
                 sim_schedule(ipAddr, 0.0, HDFSSimTags.READ_REPLICA, request);
-            }else{
-                iOffset=iOffset-MAX_BYTES_PER_BLOCK;
+            } else {
+                iOffset = iOffset - MAX_BYTES_PER_BLOCK;
             }
         }
 

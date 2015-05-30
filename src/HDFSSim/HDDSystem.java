@@ -40,7 +40,7 @@ public class HDDSystem {
             HDD val = (HDD) entry.getValue();
             HDDID key = (HDDID) entry.getKey();
             //System.out.print("| "+Sim_system.clock()+" : "+val.getHddid().toString()+" : "+val.sim_waiting()+" |\n");
-            if (val.getCapacity() >= size) {
+            if (val.getRemaining() >= size) {
                 idle = key;
             }
         }
