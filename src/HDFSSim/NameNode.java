@@ -62,7 +62,7 @@ public class NameNode extends Sim_entity {
         return blocks;
     }
 
-    private void writeBlock(Block block, int trackID, HashMap<String,Integer> futureEvent) {
+    private void writeBlock(Block block, int trackID, HashMap<String, Integer> futureEvent) {
         WriteReplicaRequest request = new WriteReplicaRequest(block, trackID);
         ArrayList<String> ipList = new ArrayList<String>();
         int remain = 3;
@@ -71,36 +71,36 @@ public class NameNode extends Sim_entity {
             Set set = dataNodesMap.entrySet();
             java.util.Iterator it = dataNodesMap.entrySet().iterator();
             int waiting = 999999;
-            String ipAddr=new String();
+            String ipAddr = new String();
             while (it.hasNext()) {
                 java.util.Map.Entry entry = (java.util.Map.Entry) it.next();
                 DataNode dn = (DataNode) entry.getValue();
-                Integer dnWaiting=dn.sim_waiting();
-                if (futureEvent.containsKey(dn.getIpAddr())){
-                    dnWaiting=dnWaiting+futureEvent.get(dn.getIpAddr());
+                Integer dnWaiting = dn.sim_waiting() + dn.getRunning();
+                if (futureEvent.containsKey(dn.getIpAddr())) {
+                    dnWaiting = dnWaiting + futureEvent.get(dn.getIpAddr());
                 }
                 if (dn.available(block.getSize()) && (dnWaiting < waiting)) {
-                    ipAddr=dn.getIpAddr();
-                    waiting=dnWaiting;
+                    ipAddr = dn.getIpAddr();
+                    waiting = dnWaiting;
                 }
             }
-            Logger.newEvent(trackID, "Send write block event to " + ipAddr, Sim_system.clock());
+            Logger.newEvent(trackID, "Sending write block " + block.getBlockID() + " event to " + ipAddr, Sim_system.clock());
             sim_schedule(ipAddr, 0.0, HDFSSimTags.WRITE_REPLICA, request);
             ipList.add(ipAddr);
-            futureEvent.put(ipAddr,waiting+1);
+            futureEvent.put(ipAddr, waiting + 1);
         }
         inode.put(Long.valueOf(block.getBlockID()), ipList);
     }
 
     private void writeNewFile(String fileName, double size) {
-        HashMap<String,Integer> futureEvent=new HashMap<String, Integer>(0);
+        HashMap<String, Integer> futureEvent = new HashMap<String, Integer>(0);
         ArrayList<Block> blocksList = fileSplitter(size);
         ArrayList<Long> blocksIDList = new ArrayList<Long>();
         int trackID = Logger.newTrack("Writing" + fileName, Sim_system.clock());
         Logger.newEvent(trackID, fileName + " was splitted into " + blocksList.size() + " blocks", Sim_system.clock());
         for (int i = 0; i < blocksList.size(); i++) {
             blocksIDList.add(blocksList.get(i).getBlockID());
-            writeBlock(blocksList.get(i), trackID,futureEvent);
+            writeBlock(blocksList.get(i), trackID, futureEvent);
         }
         namespace.put(fileName, blocksIDList);
     }
@@ -115,12 +115,13 @@ public class NameNode extends Sim_entity {
                 List<String> ipList = inode.get(blockID);
                 String ipAddr = ipList.get(0);
                 DataNode dn = dataNodesMap.get(ipAddr);
-                int waiting = dn.sim_waiting();
+                int waiting = dn.sim_waiting() + dn.getRunning();
                 for (int j = 1; j < ipList.size(); j++) {
-                    if (dataNodesMap.get(ipList.get(j)).sim_waiting() < waiting) {
+                    DataNode tmp = dataNodesMap.get(ipList.get(j));
+                    if ((tmp.sim_waiting() + tmp.getRunning()) < waiting) {
                         ipAddr = ipList.get(j);
-                        dn = dataNodesMap.get(ipAddr);
-                        waiting = dn.sim_waiting();
+                        dn = tmp;
+                        waiting = dn.sim_waiting() + dn.getRunning();
                     }
                 }
                 Logger.newEvent(trackID, "Sending block " + blockID + " request to " + ipAddr, Sim_system.clock());

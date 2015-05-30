@@ -13,7 +13,6 @@ import java.util.ArrayList;
 /**
  * DataNode class stored some basic information for simulation. When I/O request received,
  * DataNode would call hddSystem class to fill the expected consumption.
- *
  */
 public class DataNode extends Sim_entity {
     private String ipAddr;
@@ -22,6 +21,7 @@ public class DataNode extends Sim_entity {
     private HDDSystem hddSystem;
     private double baudRate;
     private Sim_port portName = new Sim_port("port");
+    private int running = 0;
 
     public DataNode(DataNodeConfiguration dnConfig) {
         super(dnConfig.getIpAddr());
@@ -45,8 +45,10 @@ public class DataNode extends Sim_entity {
         Block block = (Block) request;
         HDDID hddid = hddSystem.selectIdleHDD(request.getSize());
         Sim_event e = new Sim_event();
+        running = 1;
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.WRITE_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.WRITE_REPLICA_FIN), e);
+        running = 0;
         Logger.newEvent(request.getTrackID(), "Finished writing block " + request.getBlockID() + " to HDD " + hddid.toString(), Sim_system.clock());
         hddSystem.insertReplica(hddid, block);
     }
@@ -55,8 +57,10 @@ public class DataNode extends Sim_entity {
         long blockID = request.getBlockID();
         HDDID hddid = hddSystem.getHDDID(blockID);
         Sim_event e = new Sim_event();
+        running = 1;
         sim_schedule(hddid.toString(), 0.0, HDFSSimTags.READ_REPLICA, request);
         sim_wait_for(new HDFSSimPredicate(HDFSSimTags.READ_REPLICA_FIN), e);
+        running = 0;
         Logger.newEvent(request.getTrackID(), "Finished reading block " + request.getBlockID() + " from " + hddid.toString(), Sim_system.clock());
     }
 
@@ -74,6 +78,10 @@ public class DataNode extends Sim_entity {
 
     public double getBaudRate() {
         return baudRate;
+    }
+
+    public int getRunning() {
+        return running;
     }
 
     public boolean available(double size) {

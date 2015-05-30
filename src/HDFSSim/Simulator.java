@@ -73,6 +73,7 @@ public class Simulator extends Sim_entity {
             delay += interval;
         }
         System.out.println("Read request list successful!");
+
     }
 
 }
