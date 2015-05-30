@@ -23,8 +23,16 @@ hs_err_pid*
 
 machines.json
 
-sim_report
+*.html
 
-sim_report
+doc/
 
 *.udb
+
+*.vpp
+
+*.uml
+
+out/production/HDFS_Simulator/MyUnderstandProject1.udb
+
+out/production/HDFS_Simulator/MyUnderstandProject.udb
