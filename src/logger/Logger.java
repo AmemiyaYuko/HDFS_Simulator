@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Logger {
     public static ArrayList<Track> tracks = new ArrayList<Track>();
     private static int lastTrackID = -1;
-    private static int numOfRequests;
+    private static int numOfRequests=0;
 
     public static int newTrack(String name, double startClock) {
         lastTrackID++;

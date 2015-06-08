@@ -14,7 +14,6 @@ public class TestSystem extends Sim_entity {
         super("test");
     }
 
-
     public static void main(String[] args) {
         Sim_system.initialise();
         NameNode nm = new NameNode("/Users/Amemiya/Works/Code/HDFS_Simulator/machines.json");
