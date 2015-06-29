@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 
 /**
  * Created by Amemiya on 5/2/15.
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 
 // Every single query request has its own Tracer.
 public class Track {
-    private ArrayList<Event> events = new ArrayList<Event>();
+    private List<Event> events = Collections.synchronizedList(new ArrayList<Event>());
     private double lastClock = 0;
     private int lastEventID = -1;
     private double startClock = 0;
@@ -42,7 +44,7 @@ public class Track {
         bufferedWriter.write("Task: \"" + name + "\" :\n");
         bufferedWriter.write("Start at : " + this.startClock + ". End at : " + this.lastClock + '\n');
         for (int i = 0; i < events.size(); i++)
-            bufferedWriter.write(events.get(i).toString());
+            bufferedWriter.write( events.get(i).toString() );
         bufferedWriter.write("----------\nTime Consumption:" + String.valueOf(this.lastClock - this.startClock));
         bufferedWriter.close();
         fileWriter.close();

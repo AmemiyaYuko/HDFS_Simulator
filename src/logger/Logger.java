@@ -3,16 +3,25 @@ package logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Amemiya on 5/9/15.
  */
 public class Logger {
-    public static ArrayList<Track> tracks = new ArrayList<Track>();
+    public static List<Track> tracks = Collections.synchronizedList(new ArrayList<Track>());
     private static int lastTrackID = -1;
     private static int numOfRequests=0;
+    public static void clean(){
+        tracks=new ArrayList<Track>(0);
+        lastTrackID=-1;
+        numOfRequests=0;
+    }
+    public static int lock=0;
 
     public static int newTrack(String name, double startClock) {
+
         lastTrackID++;
         tracks.add(new Track(name, startClock));
         return lastTrackID;
